@@ -1,0 +1,38 @@
+<div style="width: 100%; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); padding: 20px; box-sizing: border-box; overflow-x: auto;">
+  
+  <table class="table" style="width: 100%; border-collapse: collapse; font-size: 14px; font-family: sans-serif;">
+    <thead>
+      <tr style="background-color: #f1f5f9; color: #0f172a; text-align: left; font-weight: 700; border-bottom: 2px solid #cbd5e1;">
+        <th style="padding: 12px 16px;">Supplier Email</th>
+        <th style="padding: 12px 16px;">Medication Name</th>
+        <th style="padding: 12px 16px; text-align: center;">Stock Qty</th>
+        <th style="padding: 12px 16px;">Batch ID</th>
+        <th style="padding: 12px 16px;">Expire Date</th>
+        <th style="padding: 12px 16px; text-align: right;">Unit Price (₹)</th>
+        <th style="padding: 12px 16px; text-align: center;">Days Remaining</th>
+        <th style="padding: 12px 16px; text-align: right;">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of inventoryis" style="border-bottom: 1px solid #e2e8f0; transition: background-color 0.15s ease;" class="hover:bg-slate-50">
+        <td style="padding: 14px 16px; color: #475569; font-weight: 600;">{{ item.email }}</td>
+        <td style="padding: 14px 16px; font-weight: 800; color: #1e293b;">{{ item.name }}</td>
+        <td style="padding: 14px 16px; text-align: center; font-weight: 700; color: #00bfa5;">{{ item.quantity }}</td>
+        <td style="padding: 14px 16px; font-weight: 600; color: #0f172a;">{{ item.batchId }}</td>
+        <td style="padding: 14px 16px; color: #ef4444; font-weight: 700;">{{ item.expireDate }}</td>
+        <td style="padding: 14px 16px; text-align: right; font-weight: 700; color: #0f172a;">₹ {{ item.price }}</td>
+        <td style="padding: 14px 16px; text-align: center;">
+          <span style="background-color: #fee2e2; color: #991b1b; font-weight: 800; padding: 4px 10px; border-radius: 9999px; font-size: 12px; display: inline-block;">
+            {{ calcRemainingDays(item.expireDate) }} days remaining
+          </span>
+        </td>
+        <td style="padding: 14px 16px; text-align: right;">
+          <button style="background-color: #2563eb; color: #ffffff; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 13px;" (click)="OpenMessageBox(item.email, item.name, item.quantity, item.batchId, item.expireDate, item.price)">
+            Request Re-Order ➔
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

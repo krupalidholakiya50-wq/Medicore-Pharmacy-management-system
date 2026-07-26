@@ -1,0 +1,46 @@
+import {  } from '../a-suppliers-window/supplier-filter.pipe';
+import {  } from '../a-inventory-window/inventory-filter.pipe';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ExpiredateWindowItemComponent } from './expiredate-window-item/expiredate-window-item.component';
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  imports: [
+    ExpiredateWindowItemComponent,
+
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSelectModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    MatFormFieldModule,
+        ],
+  standalone: true,
+  selector: 'app-expiredate-window',
+  templateUrl: './expiredate-window.component.html',
+  styleUrls: ['./expiredate-window.component.css']
+})
+export class ExpiredateWindowComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}

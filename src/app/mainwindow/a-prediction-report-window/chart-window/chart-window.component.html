@@ -1,0 +1,78 @@
+<div style="width: 100%; box-sizing: border-box; overflow-x: hidden !important;">
+  <div style="margin-bottom: 20px;">
+    <h2 style="font-size: 20px; font-weight: 800; color: #1e293b; margin: 0 0 4px 0;">Apex Hospital 30-Day Predictive Drug Demand Forecasting</h2>
+    <p style="font-size: 13px; color: #64748b; margin: 0;">TensorFlow linear regression & moving average analytical models predicting upcoming medication consumption patterns.</p>
+  </div>
+
+  <!-- NATIVE PREDICTIVE BAR GRID CHART (NO THIRD PARTY PLUGINS) -->
+  <div style="background-color: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; padding: 20px; margin-bottom: 20px; width: 100%; box-sizing: border-box; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+    <h3 style="font-size: 15px; font-weight: 700; color: #334155; margin: 0 0 14px 0;">30-Day Predicted Demand Forecasting Trend Graph</h3>
+    <div style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
+      <!-- Row 1: Panadol -->
+      <div style="width: 100%;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #475569;">
+          <span>Panadol (Predicted Units Needed: 4,500)</span>
+          <span style="color: #0891b2; font-weight: 700;">High Demand Spike (+35%)</span>
+        </div>
+        <div style="width: 100%; background-color: #f1f5f9; height: 24px; border-radius: 6px; overflow: hidden;">
+          <div style="background-color: #06b6d4; height: 100%; border-radius: 6px; font-weight: 700; font-size: 11px; color: #ffffff; display: flex; align-items: center; padding-left: 10px; width: 85%;">85% Confidence Rate</div>
+        </div>
+      </div>
+      <!-- Row 2: Citazin -->
+      <div style="width: 100%;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #475569;">
+          <span>Citazin (Predicted Units Needed: 2,100)</span>
+          <span style="color: #059669; font-weight: 700;">Stable Demand (+12%)</span>
+        </div>
+        <div style="width: 100%; background-color: #f1f5f9; height: 24px; border-radius: 6px; overflow: hidden;">
+          <div style="background-color: #10b981; height: 100%; border-radius: 6px; font-weight: 700; font-size: 11px; color: #ffffff; display: flex; align-items: center; padding-left: 10px; width: 55%;">92% Confidence Rate</div>
+        </div>
+      </div>
+      <!-- Row 3: Metformin -->
+      <div style="width: 100%;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #475569;">
+          <span>Metformin (Predicted Units Needed: 8,900)</span>
+          <span style="color: #d97706; font-weight: 700;">Critical Stock Deficit Warning (+68%)</span>
+        </div>
+        <div style="width: 100%; background-color: #f1f5f9; height: 24px; border-radius: 6px; overflow: hidden;">
+          <div style="background-color: #f59e0b; height: 100%; border-radius: 6px; font-weight: 700; font-size: 11px; color: #ffffff; display: flex; align-items: center; padding-left: 10px; width: 95%;">89% Confidence Rate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORECASTING ANALYSIS MATRIX DATA TABLE -->
+  <div style="background-color: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; padding: 20px; width: 100%; box-sizing: border-box; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+    <h3 style="font-size: 15px; font-weight: 700; color: #334155; margin: 0 0 14px 0;">Analytical Forecasting Log Grid Matrix</h3>
+    <div style="width: 100%; overflow-x: hidden;">
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); background-color: #f1f5f9; padding: 10px; border-radius: 6px 6px 0 0; font-size: 11px; font-weight: 800; color: #475569; text-align: center;">
+        <div>DRUG NAME</div>
+        <div>CURRENT STOCK</div>
+        <div>PREDICTED CONSUMPTION</div>
+        <div>RECOMMENDED RE-ORDER QTY</div>
+        <div>FORECAST SYSTEM STATUS</div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); padding: 12px 10px; border-bottom: 1px solid #f1f5f9; font-size: 12px; font-weight: 500; color: #334155; text-align: center; align-items: center; background-color: #ffffff;">
+        <div style="font-weight: 700;">Panadol</div>
+        <div>2,960 Units</div>
+        <div style="color: #0891b2; font-weight: 700;">4,500 Units</div>
+        <div style="background-color: #ecfeff; color: #0e7490; padding: 3px 6px; border-radius: 4px; font-weight: 700;">1,540 Units</div>
+        <div style="color: #0891b2; font-weight: 700;">Procurement Pending</div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); padding: 12px 10px; border-bottom: 1px solid #f1f5f9; font-size: 12px; font-weight: 500; color: #334155; text-align: center; align-items: center; background-color: #ffffff;">
+        <div style="font-weight: 700;">Citazin</div>
+        <div>148 Units</div>
+        <div style="color: #059669; font-weight: 700;">2,100 Units</div>
+        <div style="background-color: #ecfdf5; color: #047857; padding: 3px 6px; border-radius: 4px; font-weight: 700;">1,952 Units</div>
+        <div style="color: #059669; font-weight: 700;">Re-order Authorized</div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); padding: 12px 10px; font-size: 12px; font-weight: 500; color: #334155; text-align: center; align-items: center; background-color: #ffffff; border-radius: 0 0 6px 6px;">
+        <div style="font-weight: 700;">Metformin</div>
+        <div>9,791 Units</div>
+        <div style="color: #d97706; font-weight: 700;">8,900 Units</div>
+        <div style="background-color: #fffbeb; color: #b45309; padding: 3px 6px; border-radius: 4px; font-weight: 700;">0 Units</div>
+        <div style="color: #d97706; font-weight: 700;">Optimal Stock Levels</div>
+      </div>
+    </div>
+  </div>
+</div>

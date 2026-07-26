@@ -1,0 +1,290 @@
+<div class="dashboard-wrapper">
+
+    <!-- ===========================
+         TOP STATISTICS
+    ============================ -->
+
+    <section class="stats-section">
+
+        @for (
+            stat of stats();
+            track trackByStat($index, stat)
+        ) {
+
+            <div class="stats-card">
+
+                <div class="stats-title">
+                    {{ stat.title }}
+                </div>
+
+                <div class="stats-body">
+
+                    <div class="stats-label">
+                        {{ stat.label }}
+                    </div>
+
+                    <div class="stats-value">
+                        {{ stat.value }}
+                    </div>
+
+                    <div class="stats-footer">
+
+                        <span class="mongo-check">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        <span class="mongo-text">
+                            mongoDB.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
+
+    </section>
+
+    <!-- ===========================
+         DASHBOARD BODY
+    ============================ -->
+
+    <section class="dashboard-content">
+
+        <!-- =========================================
+             LEFT COLUMN
+        ========================================== -->
+
+        <div class="left-column">
+
+            <!-- Expire Notification -->
+
+            <div class="dashboard-card expire-card">
+
+                <div class="dashboard-header">
+
+                    Expire Date Notification
+
+                </div>
+
+                <div class="notification-body">
+
+                    @if(expiredDrugs().length){
+
+                        @for(
+                            item of expiredDrugs();
+                            track trackByDrug($index,item);
+                            let i = $index
+                        ){
+
+                            <div
+                                class="notification-row"
+                                [class.selected]="i==1">
+
+                                <div class="notification-content">
+
+                                    <div class="medicine-name">
+
+                                        Name : {{item.name}}
+
+                                    </div>
+
+                                    <div class="batch-id">
+
+                                        Batch Id : {{item.batchId}}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        }
+
+                    }
+
+                </div>
+
+                <button
+                    class="dashboard-btn"
+                    (click)="viewExpiredNotifications()">
+
+                    View Expire Date Notifications
+
+                </button>
+
+            </div>
+
+            <!-- Drug Quantity -->
+
+            <div class="dashboard-card drug-chart-card">
+
+                <div class="dashboard-header">
+
+                    Drug Quantity Chart
+
+                </div>
+
+                <div class="chart-panel">
+
+                    <canvas #quantityChart></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- =========================================
+             CENTER COLUMN
+        ========================================== -->
+
+        <div class="middle-column">
+
+            <div class="dashboard-card sales-card">
+
+                <div class="dashboard-header">
+
+                    Sales Information Chart
+
+                </div>
+
+                <div class="sales-chart-panel">
+
+                    <canvas #salesChart></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- =========================================
+             RIGHT COLUMN
+        ========================================== -->
+
+        <div class="right-column">
+
+            <!-- Out Of Stock -->
+
+            <div class="dashboard-card outofstock-card">
+
+                <div class="dashboard-header">
+
+                    Out Of Stock Notification
+
+                </div>
+
+                <div class="notification-body">
+
+                    @if(outOfStock().length){
+
+                        @for(
+                            item of outOfStock();
+                            track trackByDrug($index,item);
+                            let i = $index
+                        ){
+
+                            <div
+                                class="notification-row"
+                                [class.selected]="i==1">
+
+                                <div class="notification-content">
+
+                                    <div class="medicine-name">
+
+                                        Name : {{item.name}}
+
+                                    </div>
+
+                                    <div class="batch-id">
+
+                                        Batch Id : {{item.batchId}}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        }
+
+                    }
+
+                </div>
+
+                <button
+                    class="dashboard-btn"
+                    (click)="viewOutOfStockNotifications()">
+
+                    View Out Of Stock Notifications
+
+                </button>
+
+            </div>
+
+            <!-- Finished -->
+
+            <div class="dashboard-card finished-card">
+
+                <div class="dashboard-header">
+
+                    About To Get Finished Notification
+
+                </div>
+
+                <div class="notification-body">
+
+                    @if(finishedDrugs().length){
+
+                        @for(
+                            item of finishedDrugs();
+                            track trackByDrug($index,item);
+                            let i = $index
+                        ){
+
+                            <div
+                                class="notification-row"
+                                [class.selected]="i==1">
+
+                                <div class="notification-content">
+
+                                    <div class="medicine-name">
+
+                                        Name : {{item.name}}
+
+                                    </div>
+
+                                    <div class="batch-id">
+
+                                        Batch Id : {{item.batchId}}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        }
+
+                    }
+
+                </div>
+
+                <button
+                    class="dashboard-btn"
+                    (click)="viewFinishedNotifications()">
+
+                    View About To Get Finished Notifications
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>

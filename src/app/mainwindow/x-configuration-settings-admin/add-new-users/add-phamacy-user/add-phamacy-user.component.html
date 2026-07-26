@@ -1,0 +1,107 @@
+<div style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; height: 100%; box-shadow: 0 1px 4px rgba(0,0,0,0.05);">
+  
+  <!-- Header Banner -->
+  <div style="background-color: #e2e8f0; color: #1e293b; font-weight: 700; font-size: 16px; padding: 14px 20px; border-bottom: 1px solid #cbd5e1;">
+    Add new Doctor Account
+  </div>
+
+  <!-- Content Card -->
+  <div class="bg-white rounded-b-md shadow-sm border-t border-gray-200 p-6" 
+       style="background-color: #ffffff; padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+    
+    <form [formGroup]="form" (submit)="onDoctorSignup()" style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+      
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        
+        <!-- Doctor Name -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 4px;">Doctor Name</label>
+          <input formControlName="name" 
+                 type="text" 
+                 placeholder="Doctor Name" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-size: 14px; color: #1e293b; box-sizing: border-box; outline: none;" />
+          <span style="color: #ef4444; font-size: 12px;" *ngIf="registerFormControl.name.touched && registerFormControl.name.errors?.required">
+            *Doctor Name is required
+          </span>
+        </div>
+
+        <!-- Doctor Contact Number -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 4px;">Doctor Contact Number</label>
+          <input formControlName="contact" 
+                 type="text" 
+                 placeholder="Doctor Contact Number" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-size: 14px; color: #1e293b; box-sizing: border-box; outline: none;" />
+          <span style="color: #ef4444; font-size: 12px;" *ngIf="registerFormControl.contact.touched && registerFormControl.contact.errors?.required">
+            *Contact number is required
+          </span>
+        </div>
+
+        <!-- Doctor SLMC register number -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 4px;">Doctor SLMC register number</label>
+          <input formControlName="nic" 
+                 type="text" 
+                 placeholder="Doctor SLMC register number" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-size: 14px; color: #1e293b; box-sizing: border-box; outline: none;" />
+          <span style="color: #ef4444; font-size: 12px;" *ngIf="registerFormControl.nic.touched && registerFormControl.nic.errors?.required">
+            *SLMC register number is required
+          </span>
+        </div>
+
+        <!-- Doctor Email -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 4px;">Doctor Email</label>
+          <input formControlName="email" 
+                 type="email" 
+                 placeholder="Doctor Email" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-size: 14px; color: #1e293b; box-sizing: border-box; outline: none;" />
+          <span style="color: #ef4444; font-size: 12px;" *ngIf="registerFormControl.email.touched && registerFormControl.email.errors?.required">
+            *Doctor Email is required
+          </span>
+        </div>
+
+        <!-- Doctor Password -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 4px;">Doctor Password</label>
+          <input formControlName="password" 
+                 type="password" 
+                 placeholder="Doctor Password" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-size: 14px; color: #1e293b; box-sizing: border-box; outline: none;" />
+          <span style="color: #ef4444; font-size: 12px;" *ngIf="registerFormControl.password.touched && registerFormControl.password.errors?.required">
+            *Password is required
+          </span>
+        </div>
+
+        <!-- Profile Picture Row -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 4px;">Profile Picture</label>
+          <div style="display: flex; flex-direction: row; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; align-items: center;">
+            <button type="button" 
+                    (click)="filePicker.click()" 
+                    style="background-color: #f1f5f9; color: #475569; border: none; border-right: 1px solid #cbd5e1; padding: 10px 16px; font-weight: 600; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+              <i class="fa fa-upload"></i>
+              Choose Profile Picture
+            </button>
+            <input type="file" #filePicker (change)="onImagePicked($event)" style="display: none;" />
+            <div style="padding: 10px 16px; color: #94a3b8; font-size: 13px; flex: 1; text-align: right;">
+              Image
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Key: Teal SignUp Button -->
+      <div style="margin-top: 24px;">
+        <button type="submit" 
+                style="width: 100%; background-color: #00bfa5; color: #ffffff; border: none; border-radius: 6px; padding: 12px; font-weight: 700; font-size: 15px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          SignUp
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

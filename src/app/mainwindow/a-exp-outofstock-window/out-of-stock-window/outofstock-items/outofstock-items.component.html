@@ -1,0 +1,119 @@
+<div style="width: 100%; overflow-x: hidden !important;">
+
+  <!-- Desktop 6-Column Grid Header -->
+  <div class="desktop-header-row" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; width: 100%; padding: 8px 16px; font-size: 12px; font-weight: 700; color: #475569; border-bottom: 2px solid #cbd5e1; margin-bottom: 12px;">
+    <div>Supplier's Email</div>
+    <div>Drug Name</div>
+    <div>Quantity</div>
+    <div>Batch ID</div>
+    <div>Expire Date</div>
+    <div style="text-align: right;">Price & Action</div>
+  </div>
+
+  <!-- Cards List -->
+  <div *ngIf="inventorys && inventorys.length > 0">
+    <div *ngFor="let inventory of inventorys" 
+         class="bg-white rounded-md shadow-sm border border-gray-200 p-4 mb-4" 
+         style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); width: 100%; box-sizing: border-box;">
+      
+      <div class="card-grid-row" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; width: 100%; align-items: center; font-size: 13px; font-weight: 600; color: #334155;">
+        <!-- Col 1: Supplier's Email -->
+        <div style="overflow-wrap: break-word; word-break: break-all;">
+          <span class="mobile-label" style="display: none; font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 2px;">Supplier's Email: </span>
+          {{ inventory.email || inventory.supplierEmail }}
+        </div>
+
+        <!-- Col 2: Drug Name -->
+        <div>
+          <span class="mobile-label" style="display: none; font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 2px;">Drug Name: </span>
+          {{ inventory.name || inventory.drugName }}
+        </div>
+
+        <!-- Col 3: Quantity -->
+        <div>
+          <span class="mobile-label" style="display: none; font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 2px;">Quantity: </span>
+          {{ inventory.quantity }}
+        </div>
+
+        <!-- Col 4: Batch ID -->
+        <div>
+          <span class="mobile-label" style="display: none; font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 2px;">Batch ID: </span>
+          {{ inventory.batchId }}
+        </div>
+
+        <!-- Col 5: Expire Date -->
+        <div style="font-size: 12px; color: #475569;">
+          <span class="mobile-label" style="display: none; font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 2px;">Expire Date: </span>
+          {{ inventory.expireDate }}
+        </div>
+
+        <!-- Col 6: Price & Fixed Right Action Request Button -->
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+          <div>
+            <span class="mobile-label" style="display: none; font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 2px;">Price: </span>
+            Rs. {{ inventory.price }}
+          </div>
+          <button (click)="openRequestModal(inventory)" 
+                  type="button"
+                  style="background-color: #00bfa5; color: #ffffff; border: none; border-radius: 4px; padding: 6px 14px; font-weight: 600; font-size: 13px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1); white-space: nowrap;">
+            Request
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" style="text-align: center; padding: 24px; color: #64748b;">
+    Loading Out of Stock Drugs...
+  </div>
+
+  <!-- 4. REAL OVERLAY CENTER MODAL / POPUP INTERACTION -->
+  <div *ngIf="isModalOpen" 
+       class="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+       style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 16px;">
+    
+    <div class="bg-white p-6 rounded-md shadow-xl max-w-md w-full text-sm" 
+         style="background-color: #ffffff; padding: 24px; border-radius: 8px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); max-width: 440px; width: 100%; box-sizing: border-box;">
+      
+      <!-- Header Title -->
+      <h3 style="margin: 0 0 16px 0; font-size: 17px; font-weight: 700; color: #0f172a;">
+        Do you want to request {{ selectedDrug?.name || selectedDrug?.drugName }}
+      </h3>
+
+      <!-- Body Specs -->
+      <div style="margin-bottom: 16px; font-size: 14px; color: #334155; line-height: 1.6;">
+        <p style="margin: 6px 0;"><strong>Drug Name :</strong> {{ selectedDrug?.name || selectedDrug?.drugName }}</p>
+        <p style="margin: 6px 0;"><strong>Previous Price(unit price) :</strong> {{ selectedDrug?.price }}</p>
+        <p style="margin: 6px 0;"><strong>Supplier's Email :</strong> {{ selectedDrug?.email || selectedDrug?.supplierEmail }}</p>
+      </div>
+
+      <!-- Form Field Input -->
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-size: 14px; font-weight: 600; color: #334155; margin-bottom: 6px;">
+          Enter the Quantity you need
+        </label>
+        <input type="number" 
+               [(ngModel)]="requestQuantity" 
+               style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px 12px; font-size: 14px; box-sizing: border-box;" />
+      </div>
+
+      <!-- Bottom Actions Row -->
+      <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px;">
+        <button (click)="closeModal()" 
+                type="button" 
+                style="background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 8px 18px; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer;">
+          Cancel
+        </button>
+        <button (click)="sendRequest()" 
+                type="button" 
+                style="background-color: #2563eb; color: #ffffff; border: none; padding: 8px 18px; border-radius: 4px; font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          Send Request
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

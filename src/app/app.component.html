@@ -1,0 +1,116 @@
+<div class="app-layout-wrapper" [class.auth-full-page]="isAuthPage">
+
+  <!-- Left Sidebar (Only on main dashboard pages) -->
+  <div class="app-sidebar-panel" *ngIf="showMenu && showSignup && showShoppingcart && showDoctorLogin && showDoctorSignup">
+    <app-sidemenu></app-sidemenu>
+  </div>
+
+  <!-- Right Main Content Panel -->
+  <div class="app-main-panel">
+
+    <!-- Topbar Header Banner inside Right Container (Only on main dashboard pages) -->
+    <div class="app-topbar-header" *ngIf="showMenu && showSignup && showShoppingcart && showDoctorLogin && showDoctorSignup">
+      <app-header style="width: 100%;"></app-header>
+    </div>
+
+    <!-- Main Router Outlet View -->
+    <div class="app-router-content" [style.padding]="isAuthPage ? '0' : '16px 20px 20px 20px'">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+  <!-- Persistent Floating AI Medical Chatbot Widget Overlay -->
+  <app-ai-chatbot-widget></app-ai-chatbot-widget>
+</div>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden !important;
+  }
+
+  .app-layout-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden !important;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #0b0f19;
+  }
+
+  .app-layout-wrapper.auth-full-page {
+    grid-template-columns: 1fr !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    background-color: #0b0f19 !important;
+  }
+
+  .app-sidebar-panel {
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+    background-color: #1e1f22;
+    color: #ffffff;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+    z-index: 20;
+  }
+
+  .app-main-panel {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8fafc;
+    position: relative;
+    box-sizing: border-box;
+    overflow-x: hidden !important;
+  }
+
+  .auth-full-page .app-main-panel {
+    background-color: #0b0f19 !important;
+  }
+
+  .app-topbar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #343a40;
+    padding: 10px 20px;
+    width: 100%;
+    min-height: 60px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 15;
+  }
+
+  .app-router-content {
+    padding: 16px 20px 20px 20px;
+    flex: 1;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: none;
+    overflow-x: hidden !important;
+  }
+
+  @media (min-width: 1024px) {
+    .app-layout-wrapper:not(.auth-full-page) {
+      grid-template-columns: 260px minmax(0, 1fr);
+    }
+    .app-sidebar-panel {
+      width: 260px;
+      min-height: 100vh;
+      height: 100%;
+      position: sticky;
+      top: 0;
+    }
+  }
+</style>

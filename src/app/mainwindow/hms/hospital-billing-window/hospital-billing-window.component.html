@@ -1,0 +1,125 @@
+<div style="width: 100%; min-height: 100vh; background-color: #f8fafc; padding: 16px; box-sizing: border-box; overflow-x: hidden !important;">
+
+  <!-- Header -->
+  <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+    <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #0f172a;">Central Multi-Department Hospital Billing Terminal</h2>
+    <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">Aggregate OPD, IPD, OT, Pharmacy & Diagnostics invoices into a unified receipt.</p>
+  </div>
+
+  <!-- Dual Column Billing Container -->
+  <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 20px; width: 100%; align-items: stretch; margin-bottom: 24px;">
+    
+    <!-- Left Input Segment Form -->
+    <div style="flex: 1; min-width: 320px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 700; color: #1e293b; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+        1. Select Patient & Modify Line Items
+      </h3>
+
+      <!-- Patient Select Dropdown -->
+      <div style="margin-bottom: 16px;">
+        <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Select Patient / Admitted File *</label>
+        <select [(ngModel)]="selectedPatientId" (change)="onPatientSelect()" 
+                style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px; font-size: 14px; font-weight: 600; background-color: #f8fafc; color: #0f172a;">
+          <option *ngFor="let p of patients" [value]="p.id">{{ p.patientId }} - {{ p.name }} ({{ p.roomType }})</option>
+        </select>
+      </div>
+
+      <!-- Item Inputs Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px;">Consultation Fees (Rs)</label>
+          <input type="number" [(ngModel)]="consultationFees" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px; font-size: 14px; box-sizing: border-box;" />
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px;">Room Rent / Bed Charges (Rs)</label>
+          <input type="number" [(ngModel)]="roomRent" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px; font-size: 14px; box-sizing: border-box;" />
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px;">OT & Anesthesia Fees (Rs)</label>
+          <input type="number" [(ngModel)]="otFees" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px; font-size: 14px; box-sizing: border-box;" />
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px;">Pharmacy Consumables (Rs)</label>
+          <input type="number" [(ngModel)]="pharmacyTotal" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px; font-size: 14px; box-sizing: border-box;" />
+        </div>
+
+        <div style="grid-column: span 2;">
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px;">Laboratory & Diagnostics (Rs)</label>
+          <input type="number" [(ngModel)]="labDiagnostic" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px; font-size: 14px; box-sizing: border-box;" />
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Right Invoice Summary Panel -->
+    <div style="flex: 1; min-width: 320px; background-color: #1e293b; color: #ffffff; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between;">
+      
+      <div>
+        <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 700; color: #38bdf8; border-bottom: 1px solid #334155; padding-bottom: 10px;">
+          2. Aggregate Summation Matrix
+        </h3>
+
+        <!-- Dynamic Summary Rows -->
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px; margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; color: #94a3b8;">
+            <span>Sub-Total Sum:</span>
+            <span style="font-weight: 700; color: #ffffff;">Rs. {{ subTotal | number }}</span>
+          </div>
+
+          <!-- Tax Input Box -->
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: #94a3b8;">Tax Amount (GST 5% / CESS):</span>
+            <input type="number" [(ngModel)]="taxAmount" 
+                   style="width: 110px; background-color: #0f172a; color: #ffffff; border: 1px solid #475569; border-radius: 4px; padding: 6px; font-size: 13px; text-align: right;" />
+          </div>
+
+          <!-- Corporate Insurance Deduction Line -->
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: #38bdf8;">Insurance Coverage Deduction:</span>
+            <input type="number" [(ngModel)]="insuranceDeduction" 
+                   style="width: 110px; background-color: #0f172a; color: #38bdf8; border: 1px solid #0284c7; border-radius: 4px; padding: 6px; font-size: 13px; font-weight: 700; text-align: right;" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Payable Display -->
+      <div style="background-color: #0f172a; padding: 16px; border-radius: 6px; border: 1px solid #334155; text-align: right;">
+        <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; font-weight: 700;">Total Payable Amount (Rs)</div>
+        <div style="font-size: 28px; font-weight: 800; color: #22c55e; margin-top: 4px;">Rs. {{ totalPayable | number }}</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer Controls: Prominent Bright Full-Width Teal Color Block Button Bar -->
+  <button (click)="generateFinalReceipt()" 
+          type="button" 
+          style="width: 100%; background-color: #00bfa5; color: #ffffff; border: none; padding: 16px 24px; border-radius: 6px; font-weight: 800; font-size: 16px; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.2s ease;">
+    Generate Final Receipt & Discharge
+  </button>
+
+  <!-- Generated Receipt Dialog Card -->
+  <div *ngIf="receiptGenerated" style="margin-top: 24px; background-color: #ffffff; border: 2px solid #22c55e; border-radius: 8px; padding: 24px; box-shadow: 0 4px 12px rgba(34,197,94,0.15);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
+      <h3 style="margin: 0; color: #166534; font-size: 18px; font-weight: 800;">Official HMS Discharge Invoice Receipt</h3>
+      <span style="font-family: monospace; font-weight: 700; background-color: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 4px;">{{ generatedReceiptId }}</span>
+    </div>
+    <div style="font-size: 14px; color: #334155; line-height: 1.6;">
+      <p style="margin: 4px 0;"><strong>Patient:</strong> {{ selectedPatient?.name }} (ID: {{ selectedPatient?.patientId }})</p>
+      <p style="margin: 4px 0;"><strong>Room / Ward:</strong> {{ selectedPatient?.roomType }}</p>
+      <p style="margin: 4px 0;"><strong>Net Amount Paid:</strong> Rs. {{ totalPayable | number }}</p>
+      <p style="margin: 4px 0; color: #166534; font-weight: 700;">Status: RECEIPT PRINTED & DISCHARGE CLEARED</p>
+    </div>
+  </div>
+
+</div>

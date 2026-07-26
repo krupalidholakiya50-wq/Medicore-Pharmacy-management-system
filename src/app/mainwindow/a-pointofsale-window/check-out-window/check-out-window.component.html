@@ -1,0 +1,17 @@
+<section class="panel" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+  <p class="panel-heading" style="background-color: #f1f5f9; color: #1e293b; font-weight: 700; font-size: 15px; padding: 12px 16px; margin: 0; border-bottom: 1px solid #e2e8f0;">
+    Check Out Terminal
+  </p>
+  <div class="panel-block" style="padding: 16px;">
+    <div style="width: 100%;">
+      <app-check-out-elements></app-check-out-elements>
+    </div>
+  </div>
+  <div class="panel-block" style="padding: 16px; background-color: #f8fafc; border-top: 1px solid #e2e8f0;">
+    <button (click)="printBill()" 
+            class="button is-primary is-fullwidth" 
+            style="width: 100%; background-color: #00bfa5; color: #ffffff; border: none; padding: 12px; border-radius: 6px; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+      Print Bill & Instant PDF
+    </button>
+  </div>
+</section>

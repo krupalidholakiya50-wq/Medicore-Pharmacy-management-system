@@ -1,0 +1,176 @@
+<div style="width: 100%; min-height: 100vh; background-color: #f8fafc; padding: 16px; box-sizing: border-box; overflow-x: hidden !important;">
+
+  <!-- Top Dual Tabs Structure -->
+  <div class="flex flex-row w-full bg-gray-50 border border-gray-200 mb-6" 
+       style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 8px; margin-bottom: 24px; border-radius: 6px; display: flex; flex-direction: row; width: 100%;">
+    <div style="display: flex; flex-direction: row; width: 100%; gap: 8px;">
+      <!-- Tab 1: Patient Registration Form -->
+      <button type="button" 
+              (click)="activeTab = 'form'"
+              [style.background-color]="activeTab === 'form' ? '#2563eb' : '#ffffff'"
+              [style.color]="activeTab === 'form' ? '#ffffff' : '#334155'"
+              [style.font-weight]="activeTab === 'form' ? '700' : '600'"
+              style="flex: 1; text-align: center; padding: 12px 16px; border-radius: 4px; border: 1px solid #cbd5e1; cursor: pointer; font-size: 15px; transition: all 0.2s ease;">
+        Patient Registration Form
+      </button>
+
+      <!-- Tab 2: Active In-Patients Records List -->
+      <button type="button" 
+              (click)="activeTab = 'list'"
+              [style.background-color]="activeTab === 'list' ? '#2563eb' : '#ffffff'"
+              [style.color]="activeTab === 'list' ? '#ffffff' : '#334155'"
+              [style.font-weight]="activeTab === 'list' ? '700' : '600'"
+              style="flex: 1; text-align: center; padding: 12px 16px; border-radius: 4px; border: 1px solid #cbd5e1; cursor: pointer; font-size: 15px; transition: all 0.2s ease;">
+        Active In-Patients Records List ({{ patients.length }})
+      </button>
+    </div>
+  </div>
+
+  <!-- Content Canvas Area -->
+  <div style="width: 100%; max-width: 100%;">
+    
+    <!-- Tab 1 View: Patient Registration Form -->
+    <div *ngIf="activeTab === 'form'" class="bg-white rounded-md shadow-sm border border-gray-200 p-6" 
+         style="background-color: #ffffff; padding: 24px; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      
+      <div style="margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
+        <h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">OPD & In-Patient Admission Canvas</h2>
+        <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">Fill in verified metrics to create patient admission file & sync to cluster.</p>
+      </div>
+
+      <form [formGroup]="patientForm" (ngSubmit)="onRegisterPatient()">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+          
+          <!-- Full Name -->
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 4px;">Patient Full Name *</label>
+            <input type="text" formControlName="name" placeholder="e.g. Rohan Sharma" 
+                   style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px; font-size: 14px; box-sizing: border-box;" />
+          </div>
+
+          <!-- Age -->
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 4px;">Age *</label>
+            <input type="number" formControlName="age" placeholder="e.g. 42" 
+                   style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px; font-size: 14px; box-sizing: border-box;" />
+          </div>
+
+          <!-- Gender -->
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 4px;">Gender *</label>
+            <select formControlName="gender" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px; font-size: 14px; box-sizing: border-box; background-color: #fff;">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <!-- Contact Number -->
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 4px;">Contact Number *</label>
+            <input type="text" formControlName="contact" placeholder="e.g. +91 98250 12345" 
+                   style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px; font-size: 14px; box-sizing: border-box;" />
+          </div>
+
+          <!-- Blood Group -->
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 4px;">Blood Group *</label>
+            <select formControlName="bloodGroup" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px; font-size: 14px; box-sizing: border-box; background-color: #fff;">
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
+          </div>
+
+          <!-- Emergency Contact -->
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 4px;">Emergency Contact *</label>
+            <input type="text" formControlName="emergencyContact" placeholder="e.g. +91 98250 54321" 
+                   style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px; font-size: 14px; box-sizing: border-box;" />
+          </div>
+
+          <!-- Room / Ward Type Dropdown -->
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 4px;">Ward / Room Allocation *</label>
+            <select formControlName="roomType" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px; font-size: 14px; box-sizing: border-box; background-color: #fff;">
+              <option value="General Ward">General Ward</option>
+              <option value="Semi-Private">Semi-Private</option>
+              <option value="ICU">ICU</option>
+              <option value="Deluxe Room">Deluxe Room</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- Primary Symptoms -->
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 4px;">Primary Symptoms & Clinical Notes *</label>
+          <textarea formControlName="symptoms" rows="3" placeholder="Enter clinical presentation, vitals, or admitting diagnosis..." 
+                    style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px; font-size: 14px; box-sizing: border-box;"></textarea>
+        </div>
+
+        <!-- Teal Submit Button -->
+        <button type="submit" 
+                style="background-color: #00bfa5; color: #ffffff; border: none; padding: 12px 28px; border-radius: 4px; font-weight: 700; font-size: 15px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1); width: 100%; max-width: 240px;">
+          Register & Admit Patient
+        </button>
+      </form>
+    </div>
+
+    <!-- Tab 2 View: Active In-Patients Records List Table Grid -->
+    <div *ngIf="activeTab === 'list'" style="width: 100%; overflow-x: hidden !important;">
+      
+      <!-- Desktop Grid Header -->
+      <div class="desktop-header" style="display: grid; grid-template-columns: 1.2fr 1.8fr 0.8fr 1.2fr 2.5fr 1.2fr; gap: 12px; padding: 12px 16px; background-color: #e2e8f0; font-size: 12px; font-weight: 700; color: #334155; border-radius: 6px 6px 0 0;">
+        <div>PATIENT ID</div>
+        <div>FULL NAME</div>
+        <div>AGE</div>
+        <div>ROOM TYPE</div>
+        <div>SYMPTOMS</div>
+        <div style="text-align: right;">ACTIONS</div>
+      </div>
+
+      <!-- Patients List Rows -->
+      <div *ngIf="patients.length > 0">
+        <div *ngFor="let p of patients" 
+             class="bg-white rounded-md shadow-sm border border-gray-200 p-4 mb-3" 
+             style="background-color: #ffffff; border: 1px solid #e2e8f0; padding: 16px; margin-bottom: 12px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+          
+          <div class="patient-grid-row" style="display: grid; grid-template-columns: 1.2fr 1.8fr 0.8fr 1.2fr 2.5fr 1.2fr; gap: 12px; align-items: center; font-size: 13px; font-weight: 600; color: #1e293b;">
+            <div style="font-family: monospace; color: #2563eb; font-weight: 700;">{{ p.patientId }}</div>
+            <div>{{ p.name }} <span style="font-size: 11px; color: #64748b; font-weight: 500;">({{ p.gender }}, {{ p.bloodGroup }})</span></div>
+            <div>{{ p.age }} yrs</div>
+            <div>
+              <span style="background-color: #eff6ff; color: #1d4ed8; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">
+                {{ p.roomType }}
+              </span>
+            </div>
+            <div style="font-size: 12px; color: #475569;">{{ p.symptoms }}</div>
+            
+            <!-- Pink Action Button: Discharge Patient -->
+            <div style="text-align: right;">
+              <button (click)="onDischargePatient(p.id)" 
+                      type="button" 
+                      style="background-color: #ec4899; color: #ffffff; border: none; border-radius: 4px; padding: 6px 14px; font-weight: 700; font-size: 12px; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                Discharge Patient
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div *ngIf="patients.length === 0" style="text-align: center; padding: 40px; background-color: #fff; border-radius: 6px; border: 1px solid #e2e8f0; color: #64748b;">
+        No active in-patients registered. Use the "Patient Registration Form" tab to admit a patient.
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

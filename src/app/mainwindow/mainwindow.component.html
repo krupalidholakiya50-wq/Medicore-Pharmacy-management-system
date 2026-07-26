@@ -1,0 +1,141 @@
+<div style="width: 100%; box-sizing: border-box; padding: 0; overflow-x: hidden !important;">
+
+  <!-- 1. ENTERPRISE TOP METRICS GRID (AIIMS LEVEL) -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 20px; width: 100%; box-sizing: border-box;">
+    
+    <!-- Card 1: Emergency Bed Occupancy -->
+    <div style="background-color: #1e1f22; border: 1px solid #334155; border-radius: 8px; padding: 18px; color: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span style="font-size: 13px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Emergency Bed Occupancy</span>
+        <span style="width: 10px; height: 10px; border-radius: 50%; background-color: #ef4444; box-shadow: 0 0 8px #ef4444;"></span>
+      </div>
+      <div style="font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 4px;">84%</div>
+      <div style="font-size: 12px; color: #cbd5e1; font-weight: 600;">(42/50 Beds Active)</div>
+    </div>
+
+    <!-- Card 2: Active Operating Theaters -->
+    <div style="background-color: #1e1f22; border: 1px solid #334155; border-radius: 8px; padding: 18px; color: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span style="font-size: 13px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Active Operating Theaters</span>
+        <span style="font-size: 14px; color: #f59e0b;">⏱</span>
+      </div>
+      <div style="font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 4px;">5/6 OTs In-Progress</div>
+      <div style="font-size: 12px; color: #cbd5e1; font-weight: 600;">Trauma & Ortho Surgeries Active</div>
+    </div>
+
+    <!-- Card 3: Daily OPD Token Footfall -->
+    <div style="background-color: #1e1f22; border: 1px solid #334155; border-radius: 8px; padding: 18px; color: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span style="font-size: 13px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Daily OPD Token Footfall</span>
+        <span style="font-size: 14px; color: #38bdf8;">🩺</span>
+      </div>
+      <div style="font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 4px;">1,240 Patients</div>
+      <div style="font-size: 12px; color: #cbd5e1; font-weight: 600;">Checked-in Today</div>
+    </div>
+
+  </div>
+
+  <!-- 4 Metrics Counter Cards Row -->
+  <app-stat-panel></app-stat-panel>
+
+  <!-- Interactive Medicine Action Tracing Grid -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 16px; margin-bottom: 20px;">
+    
+    <!-- Clickable Expiring Notifications Block -->
+    <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+      <h3 style="margin: 0 0 12px 0; font-size: 15px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+        ⚠️ Expire Date Warnings (Click Row for Action)
+      </h3>
+      <div *ngFor="let item of expiringNotifications" 
+           (click)="openMedicineActionModal(item)"
+           class="cursor-pointer hover:bg-neutral-800/20 active:scale-[0.99] transition-all duration-200 ease-in-out p-4 rounded-md mb-3 flex flex-col border border-gray-100 shadow-sm"
+           style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px; cursor: pointer !important; display: flex; justify-content: space-between; align-items: flex-start;">
+        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+          <div>
+            <div style="font-weight: 700; color: #0f172a; font-size: 14px;">{{ item.name }}</div>
+            <div style="font-size: 12px; color: #64748b;">Batch: {{ item.batchId }} | Supplier: {{ item.supplier }}</div>
+          </div>
+          <span style="background-color: #fef3c7; color: #92400e; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px;">{{ item.stock }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clickable Out of Stock Notifications Block -->
+    <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+      <h3 style="margin: 0 0 12px 0; font-size: 15px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+        🚨 Out of Stock Alerts (Click Row for Action)
+      </h3>
+      <div *ngFor="let item of outOfStockNotifications" 
+           (click)="openMedicineActionModal(item)"
+           class="cursor-pointer hover:bg-neutral-800/20 active:scale-[0.99] transition-all duration-200 ease-in-out p-4 rounded-md mb-3 flex flex-col border border-gray-100 shadow-sm"
+           style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px; cursor: pointer !important; display: flex; justify-content: space-between; align-items: flex-start;">
+        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+          <div>
+            <div style="font-weight: 700; color: #0f172a; font-size: 14px;">{{ item.name }}</div>
+            <div style="font-size: 12px; color: #64748b;">Batch: {{ item.batchId }} | Supplier: {{ item.supplier }}</div>
+          </div>
+          <span style="background-color: #fee2e2; color: #991b1b; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px;">{{ item.stock }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Center Data Grid -->
+  <div class="dashboard-main-grid">
+
+    <!-- Column 1 (Left): Expire Date Notification & Drug Quantity Chart -->
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <app-expiredate-window></app-expiredate-window>
+      <app-predictionchart-window></app-predictionchart-window>
+    </div>
+
+    <!-- Column 2 (Center): Sales Information Chart -->
+    <div>
+      <app-saleschart-window></app-saleschart-window>
+    </div>
+
+    <!-- Column 3 (Right): Out of Stock Notification & About To Get Finished Notification -->
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <app-outofstock-window></app-outofstock-window>
+      <app-about-to-outof-stock-window></app-about-to-outof-stock-window>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 2. ADD THE IN-DASHBOARD ACTION POPUP MODAL (CRUD INTERACTION) -->
+<div *ngIf="selectedItem" class="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50" style="position: fixed; inset: 0; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 16px;">
+  <div class="bg-white rounded-lg p-6 max-w-md w-full shadow-2xl border border-gray-100 text-sm" style="background-color: #ffffff; border-radius: 12px; max-width: 440px; width: 100%; padding: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); border: 1px solid #e2e8f0; font-size: 14px;">
+    <h3 class="text-base font-bold text-gray-800 mb-3 border-b pb-2" style="font-size: 16px; font-weight: 800; color: #1e293b; margin-top: 0; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">Apex Central Inventory Action Hub</h3>
+    <div class="flex flex-col gap-2 text-gray-700 font-medium mb-5" style="display: flex; flex-direction: column; gap: 8px; color: #334155; margin-bottom: 20px;">
+      <p style="margin: 0;"><strong style="color: #0f172a;">Selected Medication:</strong> {{selectedItem.name}}</p>
+      <p style="margin: 0;"><strong style="color: #0f172a;">Current Active Batch ID:</strong> {{selectedItem.batchId}}</p>
+      <p style="margin: 0;"><strong style="color: #0f172a;">Assigned Supplier Reference:</strong> {{selectedItem.supplier || 'Krupali Dholakiya'}}</p>
+      <p class="text-red-500" style="color: #ef4444; font-weight: 700; margin: 0;"><strong>System Alert Warning:</strong> Critical Expiration Threshold Triggered!</p>
+    </div>
+    <div class="flex gap-3 justify-end" style="display: flex; gap: 12px; justify-content: flex-end;">
+      <button (click)="closeModal()" class="px-4 py-2 border border-gray-200 text-gray-500 rounded-md font-medium hover:bg-gray-50 transition-colors" style="padding: 8px 16px; border: 1px solid #cbd5e1; color: #64748b; border-radius: 6px; font-weight: 600; cursor: pointer; background: #ffffff;">Dismiss</button>
+      <button (click)="dispatchEmergencyOrder()" class="px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-md font-bold transition-colors" style="padding: 8px 18px; background-color: #00bfa5; color: #ffffff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; box-shadow: 0 2px 4px rgba(0,191,165,0.3);">Dispatch Emergency Re-Order</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .dashboard-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 20px;
+    width: 100%;
+    align-items: start;
+    margin-top: 16px;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 1023px) {
+    .dashboard-main-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,684 @@
+<div class="pos-container">
+  
+  <!-- TOP PANEL: SEARCH DRUGS & CAROUSEL -->
+  <section class="pos-panel">
+    <div class="panel-header-gray">
+      Search Drugs
+    </div>
+
+    <!-- Search Input Row -->
+    <div class="search-bar-block">
+      <div class="search-input-wrapper">
+        <input class="search-input" type="text" placeholder="Find drugs" [(ngModel)]="searchTerm" />
+        <button class="btn-search-teal">Search</button>
+      </div>
+    </div>
+
+    <!-- Horizontal Drugs Slider Carousel -->
+    <div class="carousel-relative-wrapper">
+      <button class="nav-arrow-btn left-arrow" (click)="scrollCarousel('left')">&#10094;</button>
+
+      <div class="drug-carousel-row" id="drug-carousel">
+        <div class="drug-card" *ngFor="let inventory of inventorys | inventoryFilter: searchTerm">
+          
+          <!-- Image Box Preview -->
+          <div class="card-img-box">
+            <img [src]="inventory.imagePath" [alt]="inventory.name" class="drug-img" />
+          </div>
+
+          <!-- Drug Name -->
+          <div class="drug-title">
+            {{ inventory.name }}
+          </div>
+
+          <!-- Price & Quantity Input Box (Replaces Checkbox) -->
+          <div class="price-qty-row">
+            <span class="price-text">${{ inventory.price }}</span>
+            <input 
+              type="number" 
+              class="qty-input-box" 
+              [(ngModel)]="inventory.quantityInput" 
+              placeholder="1"
+            />
+          </div>
+
+          <!-- Add to Bill Action Button -->
+          <button 
+            type="button" 
+            class="btn-add-bill" 
+            (click)="onAddToBill(inventory)"
+          >
+            Add to Bill
+          </button>
+
+        </div>
+      </div>
+
+      <button class="nav-arrow-btn right-arrow" (click)="scrollCarousel('right')">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- BOTTOM PANEL: SPLIT BILL GRID & CHECK OUT -->
+  <section class="bottom-split-row">
+
+    <!-- LEFT SECTION: BILL GRID (73% width on desktop) -->
+    <div class="bill-grid-panel">
+      <div class="panel-header-gray">
+        Bill
+      </div>
+      
+      <div class="bill-table-wrapper">
+        <table class="bill-table">
+          <thead>
+            <tr>
+              <th>NAME</th>
+              <th>ID</th>
+              <th>QUANTITY</th>
+              <th>EXPIRE DATE</th>
+              <th>PRICE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let entries of itemArray">
+              <td class="bold-cell">{{ entries[1] }}</td>
+              <td>{{ entries[0] }}</td>
+              <td>{{ entries[4] }}</td>
+              <td>{{ entries[2] }}</td>
+              <td class="bold-cell">{{ entries[3] }}</td>
+            </tr>
+            <tr *ngIf="itemArray.length === 0">
+              <td colspan="5" class="empty-bill-msg">
+                No items added to bill yet. Select a medicine quantity and click "Add to Bill".
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Prominent Full-Width Horizontal Teal Action Button Bar (#00bfa5) -->
+      <div class="panel-footer-box">
+        <button class="btn-checkout-teal" (click)="onAddToCheckout(itemArray)">
+          Check Out
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT SECTION: CHECK OUT PANEL (27% width on desktop) -->
+    <div class="checkout-card-panel">
+      <div class="panel-header-gray">
+        Check Out
+      </div>
+
+      <div class="checkout-body">
+        <!-- Total -->
+        <div class="checkout-field-row">
+          <label class="field-label">Total :</label>
+          <span class="field-value-bold">{{ total }}</span>
+        </div>
+
+        <!-- Tax Input -->
+        <div class="checkout-field-row">
+          <label class="field-label">Tax:</label>
+          <input 
+            class="checkout-input" 
+            type="number" 
+            placeholder="Enter amount" 
+            [(ngModel)]="tax" 
+            (input)="calculateBalance()" 
+          />
+        </div>
+
+        <!-- Paid Amount Input (contains 40000) -->
+        <div class="checkout-field-row">
+          <label class="field-label">Paid Amount :</label>
+          <input 
+            class="checkout-input wide-input" 
+            type="number" 
+            placeholder="Enter amount" 
+            [(ngModel)]="paidAmount" 
+            (input)="calculateBalance()" 
+          />
+        </div>
+
+        <!-- Balance (displays 24400) -->
+        <div class="checkout-field-row">
+          <label class="field-label">Balance :</label>
+          <span class="field-value-bold balance-display">{{ balance }}</span>
+        </div>
+      </div>
+
+      <!-- Dual Action Buttons Side-by-Side (#00bfa5) -->
+      <div class="checkout-actions">
+        <button class="btn-teal-action" (click)="calculateBalance()">
+          Get Balance
+        </button>
+        <button class="btn-teal-action" (click)="print()">
+          Print Bill
+        </button>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<!-- BOTTOM POPUP TOAST NOTIFICATION -->
+<div *ngIf="showToast" class="bottom-toast-notification">
+  <span class="toast-text">Transaction Added to Sales Report !!</span>
+  <button class="toast-close-btn" (click)="closeToast()">[Close]</button>
+</div>
+
+<!-- Printable Section for Receipt -->
+<div id="print-section" style="display: none;">
+  <div style="padding: 20px; font-family: Arial, sans-serif;">
+    <h2>MediCore Pharmacy System - Bill Receipt</h2>
+    <hr />
+    <p><strong>Total:</strong> {{ total }}</p>
+    <p><strong>Tax:</strong> {{ tax }}</p>
+    <p><strong>Paid Amount:</strong> {{ paidAmount }}</p>
+    <p><strong>Balance:</strong> {{ balance }}</p>
+    <hr />
+    <h3>Items Billed:</h3>
+    <ul>
+      <li *ngFor="let item of itemArray">
+        {{ item[1] }} (x{{ item[4] }}) - Rs. {{ item[3] }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .pos-container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 16px 0 60px 0;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .pos-panel {
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  .panel-header-gray {
+    background-color: #e2e8f0;
+    color: #1e293b;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 12px 18px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 1px solid #cbd5e1;
+  }
+
+  .search-bar-block {
+    padding: 16px 20px 10px 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .search-input {
+    flex: 1;
+    height: 42px;
+    padding: 0 14px;
+    border: 1px solid #cbd5e1;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    font-size: 0.9rem;
+    outline: none;
+    background: #ffffff;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+  }
+
+  .search-input:focus {
+    border-color: #00bfa5;
+  }
+
+  .btn-search-teal {
+    height: 42px;
+    padding: 0 24px;
+    background-color: #00bfa5;
+    color: #ffffff;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .btn-search-teal:hover {
+    background-color: #00a892;
+  }
+
+  /* Carousel Row Wrapper */
+  .carousel-relative-wrapper {
+    position: relative;
+    width: 100%;
+    padding: 10px 45px 20px 45px;
+    box-sizing: border-box;
+  }
+
+  .nav-arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #00bfa5;
+    color: #ffffff;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    transition: background-color 0.15s ease;
+  }
+
+  .nav-arrow-btn:hover {
+    background-color: #00a892;
+  }
+
+  .left-arrow {
+    left: 8px;
+  }
+
+  .right-arrow {
+    right: 8px;
+  }
+
+  .drug-carousel-row {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 8px 4px;
+    scrollbar-width: none;
+  }
+
+  .drug-carousel-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .drug-card {
+    flex: 0 0 170px;
+    min-width: 160px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 12px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .drug-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .card-img-box {
+    width: 100%;
+    height: 110px;
+    background: #f8fafc;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: 1px solid #f1f5f9;
+  }
+
+  .drug-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .drug-title {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #1e293b;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+
+  .price-qty-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .price-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+  }
+
+  .qty-input-box {
+    width: 48px;
+    height: 28px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    text-align: center;
+    font-weight: 600;
+    outline: none;
+    background: #ffffff;
+  }
+
+  .qty-input-box:focus {
+    border-color: #00bfa5;
+  }
+
+  .btn-add-bill {
+    width: 100%;
+    padding: 7px 0;
+    background-color: #e2e8f0;
+    color: #334155;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .btn-add-bill:hover {
+    background-color: #00bfa5;
+    color: #ffffff;
+  }
+
+  /* BOTTOM SPLIT ROW */
+  .bottom-split-row {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 1024px) {
+    .bottom-split-row {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .bill-grid-panel {
+      width: 73% !important;
+      flex: 1;
+    }
+
+    .checkout-card-panel {
+      width: 27% !important;
+      min-width: 260px;
+    }
+  }
+
+  .bill-grid-panel, .checkout-card-panel {
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .bill-table-wrapper {
+    padding: 16px;
+    overflow-x: auto;
+    flex: 1;
+  }
+
+  .bill-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  .bill-table th {
+    background-color: #f8fafc;
+    color: #1e293b;
+    font-weight: 700;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 2px solid #cbd5e1;
+    white-space: nowrap;
+  }
+
+  .bill-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #475569;
+  }
+
+  .bold-cell {
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .empty-bill-msg {
+    text-align: center;
+    color: #94a3b8;
+    padding: 24px !important;
+    font-style: italic;
+  }
+
+  .panel-footer-box {
+    padding: 12px 16px;
+    border-top: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .btn-checkout-teal {
+    width: 100%;
+    padding: 11px 0;
+    background-color: #00bfa5;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.15s ease;
+    display: block;
+  }
+
+  .btn-checkout-teal:hover {
+    background-color: #00a892;
+  }
+
+  /* Check Out Body */
+  .checkout-body {
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .checkout-field-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .field-label {
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+
+  .field-value-bold {
+    font-weight: 800;
+    color: #0f172a;
+    font-size: 1.05rem;
+  }
+
+  .balance-display {
+    color: #0f172a;
+    font-size: 1.1rem;
+  }
+
+  .checkout-input {
+    width: 120px;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    text-align: right;
+    outline: none;
+    background: #ffffff;
+  }
+
+  .wide-input {
+    width: 140px;
+    background: #ffffff;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  .checkout-input:focus {
+    border-color: #00bfa5;
+  }
+
+  .checkout-actions {
+    padding: 14px 18px;
+    border-top: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-teal-action {
+    flex: 1;
+    padding: 10px 0;
+    background-color: #00bfa5;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.15s ease;
+  }
+
+  .btn-teal-action:hover {
+    background-color: #00a892;
+  }
+
+  /* BOTTOM TOAST NOTIFICATION */
+  .bottom-toast-notification {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2b2c2f;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    z-index: 9999;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+
+  .toast-text {
+    color: #ffffff;
+  }
+
+  .toast-close-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.15s ease;
+  }
+
+  .toast-close-btn:hover {
+    color: #ffffff;
+  }
+
+  /* Mobile Breakpoint Refolding (< 768px: 320px, 375px, 425px) */
+  @media (max-width: 767px) {
+    .search-input-wrapper {
+      flex-direction: column;
+      gap: 8px;
+    }
+    .search-input {
+      border-right: 1px solid #cbd5e1;
+      border-radius: 4px;
+    }
+    .btn-search-teal {
+      width: 100%;
+      border-radius: 4px;
+    }
+    .checkout-field-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .checkout-input {
+      width: 100%;
+      text-align: left;
+    }
+    .checkout-actions {
+      flex-direction: column;
+    }
+    .bottom-toast-notification {
+      width: 90%;
+      left: 5%;
+      transform: none;
+      box-sizing: border-box;
+      justify-content: space-between;
+    }
+  }
+</style>

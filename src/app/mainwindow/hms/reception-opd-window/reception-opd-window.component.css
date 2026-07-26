@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  width: 100%;
+  overflow-x: hidden !important;
+}
+
+@media (max-width: 1023px) {
+  .desktop-header {
+    display: none !important;
+  }
+
+  .patient-grid-row {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+}

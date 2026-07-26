@@ -1,0 +1,95 @@
+<div class="suppliers-root-container">
+  
+  <!-- 1. TOP DUAL TAB NAVIGATION BAR -->
+  <div class="flex flex-row w-full bg-gray-100 border-b border-gray-200 dual-tab-bar">
+    <button 
+      type="button" 
+      class="tab-toggle-btn" 
+      [class.active-blue-tab]="activeTab === 'form'"
+      [class.inactive-gray-tab]="activeTab !== 'form'"
+      (click)="setActiveTab('form')"
+    >
+      <span>Supplier Form</span>
+    </button>
+
+    <button 
+      type="button" 
+      class="tab-toggle-btn" 
+      [class.active-blue-tab]="activeTab === 'list'"
+      [class.inactive-gray-tab]="activeTab !== 'list'"
+      (click)="setActiveTab('list')"
+    >
+      <span>Supplier List</span>
+    </button>
+
+  </div>
+
+  <!-- 2. MAIN CONTENT CANVAS CONTAINER (#f8fafc) -->
+  <div class="suppliers-canvas-area">
+    <app-add-supplier-window *ngIf="activeTab === 'form'" (submitted)="setActiveTab('list')"></app-add-supplier-window>
+    <app-supplier-inventory-items *ngIf="activeTab === 'list'"></app-supplier-inventory-items>
+  </div>
+
+</div>
+
+<style>
+  .suppliers-root-container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden !important;
+    overflow-y: visible;
+  }
+
+  /* Dual Tab Header Layout Block */
+  .dual-tab-bar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .tab-toggle-btn {
+    flex: 1;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .tab-icon {
+    font-size: 1.05rem;
+  }
+
+  /* Active Right Tab: Solid Dark Blue (#2563eb), Bold White Text */
+  .active-blue-tab {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  /* Inactive Tab: Light Gray Background, Dark Gray Text */
+  .inactive-gray-tab {
+    background-color: #f1f5f9 !important;
+    color: #475569 !important;
+  }
+
+  .inactive-gray-tab:hover {
+    background-color: #e2e8f0 !important;
+  }
+
+  .suppliers-canvas-area {
+    width: 100%;
+    background-color: #f8fafc;
+    min-height: calc(100vh - 120px);
+    padding: 24px 0;
+    box-sizing: border-box;
+  }
+</style>

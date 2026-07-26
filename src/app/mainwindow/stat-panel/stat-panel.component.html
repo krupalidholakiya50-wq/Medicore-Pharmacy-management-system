@@ -1,0 +1,117 @@
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; width: 100%; margin: 5px 0 15px 0; box-sizing: border-box;">
+  <!-- Card 1 -->
+  <div class="stat-card-custom">
+    <div class="stat-card-header">DOCTOR USER STATS</div>
+    <div class="stat-card-subheader">Total Doctor Users</div>
+    <div class="stat-card-inner">
+      <span class="stat-card-number">{{totalDoctorUsers}}</span>
+    </div>
+    <div class="stat-card-footer">
+      <span class="footer-check"><i class="fa fa-check"></i></span>
+      <span class="footer-mongo"><i class="fa fa-database"></i> mongoDB</span>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="stat-card-custom">
+    <div class="stat-card-header">DOCTOR ODER STATS</div>
+    <div class="stat-card-subheader">Doctor Orders Available</div>
+    <div class="stat-card-inner">
+      <span class="stat-card-number">{{doctorOrdersAvailable}}</span>
+    </div>
+    <div class="stat-card-footer">
+      <span class="footer-check"><i class="fa fa-check"></i></span>
+      <span class="footer-mongo"><i class="fa fa-database"></i> mongoDB</span>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="stat-card-custom">
+    <div class="stat-card-header">DOCTOR VERIFIED ODER STATS</div>
+    <div class="stat-card-subheader">Verified Doctor Orders</div>
+    <div class="stat-card-inner">
+      <span class="stat-card-number">{{verifiedDoctorOrders}}</span>
+    </div>
+    <div class="stat-card-footer">
+      <span class="footer-check"><i class="fa fa-check"></i></span>
+      <span class="footer-mongo"><i class="fa fa-database"></i> mongoDB</span>
+    </div>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="stat-card-custom">
+    <div class="stat-card-header">DOCTOR PICKEDUP ODER STATS</div>
+    <div class="stat-card-subheader">Picked Up Doctor Oders</div>
+    <div class="stat-card-inner">
+      <span class="stat-card-number">{{pickedUpDoctorOrders}}</span>
+    </div>
+    <div class="stat-card-footer">
+      <span class="footer-check"><i class="fa fa-check"></i></span>
+      <span class="footer-mongo"><i class="fa fa-database"></i> mongoDB</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .stat-card-custom {
+    background-color: hsl(171, 55%, 76%);
+    border: 1px solid #7cd6c7;
+    border-radius: 8px;
+    padding: 14px 16px 10px 16px;
+    height: 155px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .stat-card-header {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #21313c;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .stat-card-subheader {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #21313c;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .stat-card-inner {
+    background-color: #21313c;
+    border-radius: 6px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.25);
+  }
+  .stat-card-number {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #ffffff;
+  }
+  .stat-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+  }
+  .footer-check {
+    color: #21313c;
+    font-weight: 900;
+    font-size: 0.85rem;
+  }
+  .footer-mongo {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #21313c;
+  }
+</style>

@@ -1,0 +1,59 @@
+<div style="width: 100vw; min-height: 100vh; background: #0b0f19; display: flex; align-items: center; justify-content: center; padding: 40px 20px; box-sizing: border-box; overflow-y: auto;">
+  
+  <div style="background: rgba(20, 21, 23, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 40px; max-width: 440px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); text-align: center; margin: auto;">
+    
+    <!-- Hospital Logo Header -->
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px;">
+      <span style="font-size: 30px; color: #ef4444;">✚</span>
+      <h2 style="font-size: 22px; font-weight: 800; color: #ffffff; margin: 0; letter-spacing: 0.5px;">Apex Multispecialty Hospital</h2>
+    </div>
+    <p style="font-size: 13px; color: #00bfa5; font-weight: 700; margin-top: 0; margin-bottom: 28px; text-transform: uppercase; letter-spacing: 1px;">👨‍⚕️ Doctor & Specialist Medical Portal</p>
+
+    <!-- Doctor Login Form -->
+    <form (submit)="onDoctorLogin(loginForm)" #loginForm="ngForm" style="display: flex; flex-direction: column; gap: 18px;">
+      
+      <!-- Doctor Reg ID -->
+      <div style="text-align: left;">
+        <label style="font-size: 12px; font-weight: 700; color: #94a3b8; display: block; margin-bottom: 6px; text-transform: uppercase;">Medical Registration / Doctor ID</label>
+        <input name="docId" [(ngModel)]="enteredDocId" type="text" placeholder="DOC-CARD-101" style="width: 100%; background: #1e293b; border: 1px solid #334155; color: #ffffff; padding: 12px 14px; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+      </div>
+
+      <!-- Email Field -->
+      <div style="text-align: left;">
+        <label style="font-size: 12px; font-weight: 700; color: #94a3b8; display: block; margin-bottom: 6px; text-transform: uppercase;">Official Doctor Email</label>
+        <input name="email" [(ngModel)]="enteredEmail" #emailInput="ngModel" type="email" placeholder="krupali@apex.org" required email style="width: 100%; background: #1e293b; border: 1px solid #334155; color: #ffffff; padding: 12px 14px; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+        <p *ngIf="!emailInput.valid && emailInput.touched" style="color: #ef4444; font-size: 12px; margin-top: 4px; margin-bottom: 0;">Please enter valid doctor email address</p>
+      </div>
+
+      <!-- Password Field -->
+      <div style="text-align: left;">
+        <label style="font-size: 12px; font-weight: 700; color: #94a3b8; display: block; margin-bottom: 6px; text-transform: uppercase;">Medical Security Key / Password</label>
+        <input name="password" [(ngModel)]="enteredPassword" #passwordInput="ngModel" type="password" placeholder="••••••••" required style="width: 100%; background: #1e293b; border: 1px solid #334155; color: #ffffff; padding: 12px 14px; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+        <p *ngIf="!passwordInput.valid && passwordInput.touched" style="color: #ef4444; font-size: 12px; margin-top: 4px; margin-bottom: 0;">Please enter valid password</p>
+      </div>
+
+      <!-- Remember Me Checkbox -->
+      <div style="display: flex; align-items: center; gap: 8px; text-align: left;">
+        <input type="checkbox" id="remember" style="accent-color: #00bfa5; width: 16px; height: 16px; cursor: pointer;">
+        <label for="remember" style="font-size: 13px; color: #cbd5e1; cursor: pointer;">Remember doctor login session</label>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" style="background: linear-gradient(135deg, #00bfa5 0%, #00897b 100%); color: #ffffff; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: 800; cursor: pointer; margin-top: 6px; box-shadow: 0 4px 12px rgba(0, 191, 165, 0.3); transition: all 0.2s ease;">
+        Authorize Doctor Portal ➔
+      </button>
+
+    </form>
+
+    <!-- Footer Links -->
+    <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 13px; color: #94a3b8; display: flex; justify-content: center; gap: 16px;">
+      <a routerLink="/doctorSignup" style="color: #00bfa5; text-decoration: none; font-weight: 700;">Doctor Registration</a>
+      <span>•</span>
+      <a routerLink="/login" style="color: #94a3b8; text-decoration: none;">Staff Login</a>
+      <span>•</span>
+      <a routerLink="/" style="color: #94a3b8; text-decoration: none;">Dashboard</a>
+    </div>
+
+  </div>
+
+</div>

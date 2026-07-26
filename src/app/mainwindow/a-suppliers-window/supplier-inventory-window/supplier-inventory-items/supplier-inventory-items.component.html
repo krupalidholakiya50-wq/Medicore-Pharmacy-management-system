@@ -1,0 +1,352 @@
+<div class="suppliers-list-wrapper">
+  
+  <!-- TITLE HEADER -->
+  <h2 class="suppliers-title-header">Suppliers</h2>
+
+  <!-- SEARCH BAR BLOCK -->
+  <section class="search-panel-container">
+    <div class="search-input-wrapper">
+      <input 
+        type="text" 
+        class="search-input-field" 
+        placeholder="Find suppliers by name" 
+        [(ngModel)]="searchTerm" 
+      />
+      <button class="btn-search-teal" type="button">
+        Search
+      </button>
+    </div>
+  </section>
+
+  <!-- SUPPLIERS DATA LOOP CARDS -->
+  <div class="suppliers-cards-container">
+    
+    <div *ngIf="(suppliers | supplierFilter: searchTerm).length === 0" class="empty-supplier-box">
+      No suppliers found.
+    </div>
+
+    <!-- Wide Horizontal White Supplier Row Cards -->
+    <div 
+      class="supplier-row-card w-full bg-white rounded-md shadow-sm border border-gray-200 p-4 mb-4" 
+      *ngFor="let supplier of suppliers | supplierFilter: searchTerm"
+    >
+      
+      <!-- Top Gray Title Header Row (Desktop Only) -->
+      <div class="card-grid-header desktop-only">
+        <div class="header-cell">SupplierID</div>
+        <div class="header-cell">Name</div>
+        <div class="header-cell">Email</div>
+        <div class="header-cell">Contact</div>
+        <div class="header-cell">DrugsAvailable</div>
+        <div class="header-cell"></div>
+      </div>
+
+      <!-- Card Data Values Grid (6 Columns) -->
+      <div class="card-grid-body grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 items-center text-xs font-medium">
+        
+        <!-- Column 1: SupplierID -->
+        <div class="grid-col">
+          <span class="mobile-label">SupplierID</span>
+          <span class="text-data-val">{{ supplier.supplierId || supplier.supplierID }}</span>
+        </div>
+
+        <!-- Column 2: Name -->
+        <div class="grid-col">
+          <span class="mobile-label">Name</span>
+          <span class="text-data-bold">{{ supplier.name }}</span>
+        </div>
+
+        <!-- Column 3: Email -->
+        <div class="grid-col">
+          <span class="mobile-label">Email</span>
+          <span class="text-data-val">{{ supplier.email }}</span>
+        </div>
+
+        <!-- Column 4: Contact -->
+        <div class="grid-col">
+          <span class="mobile-label">Contact</span>
+          <span class="text-data-val">{{ supplier.contact }}</span>
+        </div>
+
+        <!-- Column 5: DrugsAvailable -->
+        <div class="grid-col">
+          <span class="mobile-label">DrugsAvailable</span>
+          <span class="text-data-val">{{ supplier.drugsAvailable }}</span>
+        </div>
+
+        <!-- Column 6: Action Control Buttons Block -->
+        <div class="grid-col action-buttons-cell">
+          <a class="btn-edit-teal" [routerLink]="['/edit', supplier.supplierId || supplier.id]">
+            Edit
+          </a>
+          <button class="btn-delete-pink" type="button" (click)="deleteSupplier(supplier.supplierId || supplier.id)">
+            Delete
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+  .suppliers-list-wrapper {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    overflow-x: hidden !important;
+    overflow-y: visible;
+  }
+
+  .suppliers-title-header {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 18px 0;
+    padding: 0;
+  }
+
+  /* SEARCH BAR BLOCK */
+  .search-panel-container {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .search-input-field {
+    flex: 1;
+    height: 42px;
+    padding: 0 16px;
+    border: 1px solid #cbd5e1;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    font-size: 0.9rem;
+    outline: none;
+    background: #ffffff;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+  }
+
+  .search-input-field:focus {
+    border-color: #00bfa5;
+  }
+
+  .btn-search-teal {
+    height: 42px;
+    padding: 0 24px;
+    background-color: #00bfa5;
+    color: #ffffff;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .btn-search-teal:hover {
+    background-color: #00a892;
+  }
+
+  /* CARDS CONTAINER */
+  .suppliers-cards-container {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .empty-supplier-box {
+    padding: 36px;
+    text-align: center;
+    color: #64748b;
+    font-size: 0.95rem;
+    font-weight: 600;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .supplier-row-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  /* DESKTOP GRID LAYOUT (>= 1024px) */
+  @media (min-width: 1024px) {
+    .card-grid-header {
+      display: grid;
+      grid-template-columns: minmax(120px, 1.2fr) minmax(140px, 1.4fr) minmax(180px, 1.8fr) minmax(130px, 1.3fr) minmax(140px, 1.4fr) minmax(130px, 1.2fr);
+      column-gap: 16px;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #f1f5f9;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .header-cell {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    .card-grid-body {
+      display: grid;
+      grid-template-columns: minmax(120px, 1.2fr) minmax(140px, 1.4fr) minmax(180px, 1.8fr) minmax(130px, 1.3fr) minmax(140px, 1.4fr) minmax(130px, 1.2fr);
+      column-gap: 16px;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .desktop-only {
+      display: grid;
+    }
+
+    .mobile-label {
+      display: none;
+    }
+  }
+
+  .grid-col {
+    font-size: 0.84rem;
+    color: #334155;
+    word-break: break-word;
+  }
+
+  .text-data-val {
+    color: #334155;
+  }
+
+  .text-data-bold {
+    color: #0f172a;
+    font-weight: 700;
+  }
+
+  .action-buttons-cell {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  /* Edit Button: Teal (#00bfa5) */
+  .btn-edit-teal {
+    background-color: #00bfa5;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .btn-edit-teal:hover {
+    background-color: #00a892;
+    color: #ffffff;
+  }
+
+  /* Delete Button: Pink (#ec4899) */
+  .btn-delete-pink {
+    background-color: #ec4899;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .btn-delete-pink:hover {
+    background-color: #db2777;
+  }
+
+  /* MOBILE & TABLET BREAKPOINTS (< 1024px: 768px, 425px, 375px, 320px) */
+  @media (max-width: 1023px) {
+    .desktop-only {
+      display: none;
+    }
+
+    .card-grid-body {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .grid-col {
+      background-color: #f8fafc;
+      padding: 10px 12px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .mobile-label {
+      display: block;
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .action-buttons-cell {
+      grid-column: 1 / -1;
+      background-color: transparent;
+      padding: 6px 0 0 0;
+      border: none;
+      flex-direction: row;
+    }
+
+    .btn-edit-teal, .btn-delete-pink {
+      flex: 1;
+      padding: 9px 0;
+      font-size: 0.82rem;
+    }
+  }
+
+  /* SMALL MOBILE (< 480px) */
+  @media (max-width: 479px) {
+    .card-grid-body {
+      grid-template-columns: 1fr;
+    }
+    .action-buttons-cell {
+      flex-direction: column;
+    }
+  }
+</style>

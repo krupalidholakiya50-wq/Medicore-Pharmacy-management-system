@@ -1,0 +1,29 @@
+<div style="background-color: #e6e6e6; border-radius: 6px; padding: 12px; position: relative;">
+  <div style="font-weight: 700; font-size: 1.1rem; color: #333333; margin-bottom: 12px;">
+    Sales Information Chart
+  </div>
+  
+  <div style="background-color: #16212e; border-radius: 4px; padding: 10px; overflow: hidden; height: 600px !important; position: relative;">
+    <div *ngIf="chartOptions" style="height: 100%;">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [yaxis]="chartOptions.yaxis"
+        [colors]="chartOptions.colors"
+        [plotOptions]="chartOptions.plotOptions"
+        [title]="chartOptions.title"
+        [legend]="chartOptions.legend"
+        [dataLabels]="chartOptions.dataLabels">
+      </apx-chart>
+    </div>
+  </div>
+
+  <!-- Floating Toast Popup matching reference screenshot -->
+  <div style="position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); background-color: #343434; color: #ffffff; padding: 8px 18px; border-radius: 4px; display: flex; align-items: center; gap: 35px; box-shadow: 0 4px 12px rgba(0,0,0,0.35); z-index: 30; font-size: 0.82rem;">
+    <span>Logged in Successfully</span>
+    <button style="background: none; border: none; color: #ffdd57; font-weight: 700; cursor: pointer; font-size: 0.82rem;">Close</button>
+  </div>
+</div>
+
+

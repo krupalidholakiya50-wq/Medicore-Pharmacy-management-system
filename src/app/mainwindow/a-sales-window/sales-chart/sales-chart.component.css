@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  width: 100%;
+  background-color: #f8fafc;
+  overflow-x: hidden !important;
+}
+
+.sales-dashboard-wrapper {
+  background-color: #f8fafc;
+  overflow-x: hidden !important;
+}
+
+@media (max-width: 1023px) {
+  .flex-col {
+    flex-direction: column !important;
+  }
+  .chart-card-col {
+    width: 100% !important;
+    margin-bottom: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:flex-row {
+    flex-direction: row !important;
+  }
+}

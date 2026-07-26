@@ -1,0 +1,240 @@
+<div class="doctor-orders-wrapper">
+  <div *ngIf="docOders.length === 0" class="empty-state">
+    No new orders available in this section.
+  </div>
+
+  <div *ngFor="let docOder of docOders" class="doctor-order-card">
+
+    <!-- Card Flex Row (Desktop: Left Data 86% / Right Action 14%) -->
+    <div class="card-inner-flex">
+
+      <!-- Left Data Block (86% width on desktop) -->
+      <div class="left-data-block">
+        <div class="grid-td">
+          <span class="mobile-label">Doctor Name</span>
+          <span class="data-value-bold">{{docOder.doctorName}}</span>
+        </div>
+
+        <div class="grid-td">
+          <span class="mobile-label">Doctor Contact</span>
+          <span>{{docOder.doctorContact}}</span>
+        </div>
+
+        <div class="grid-td">
+          <span class="mobile-label">DoctorID</span>
+          <span>{{docOder.doctorId}}</span>
+        </div>
+
+        <div class="grid-td">
+          <span class="mobile-label">Doctor Email</span>
+          <span>{{docOder.doctorEmail}}</span>
+        </div>
+
+        <div class="grid-td">
+          <span class="mobile-label">Drug Names</span>
+          <div class="drug-stack">
+            <div *ngFor="let name of docOder.drugName">{{name}}</div>
+          </div>
+        </div>
+
+        <div class="grid-td">
+          <span class="mobile-label">Drug Prices</span>
+          <div class="drug-stack">
+            <div *ngFor="let price of docOder.drugPrice">{{price}}</div>
+          </div>
+        </div>
+
+        <div class="grid-td">
+          <span class="mobile-label">Quantities</span>
+          <div class="drug-stack">
+            <div *ngFor="let qty of docOder.drugQuantity">{{qty}}</div>
+          </div>
+        </div>
+
+        <div class="grid-td">
+          <span class="mobile-label">Total</span>
+          <span class="data-value-bold">{{docOder.totalAmount}}</span>
+        </div>
+
+        <div class="grid-td">
+          <span class="mobile-label">Pickup Date</span>
+          <span>{{docOder.pickupDate}}</span>
+        </div>
+      </div>
+
+      <!-- Right Action Block (14% width on desktop) -->
+      <div class="right-action-block">
+        <button class="btn-cyan-action" (click)="onOderVerify(docOder.doctorName,docOder.doctorEmail,docOder.totalAmount,docOder.pickupDate,docOder.drugId,docOder.drugName,docOder.drugPrice,docOder.drugQuantity,docOder.realQuantity,docOder.doctorId,docOder.doctorContact,docOder.id)">
+          Order Verified
+        </button>
+        <button class="btn-cyan-action">
+          View Order
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .doctor-orders-wrapper {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  .empty-state {
+    padding: 32px;
+    text-align: center;
+    color: #666666;
+    font-size: 0.95rem;
+    font-weight: 500;
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .doctor-order-card {
+    background-color: #ffffff;
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f1f5f9;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  .card-inner-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .grid-td {
+    font-size: 0.84rem;
+    color: #4a4a4a;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+
+  .data-value-bold {
+    color: #1e293b;
+    font-weight: 600;
+  }
+
+  .drug-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .btn-cyan-action {
+    background-color: #00d1b2;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  .btn-cyan-action:hover {
+    background-color: #00b89c;
+  }
+
+  /* Desktop Viewport (>= 1024px) */
+  @media (min-width: 1024px) {
+    .card-inner-flex {
+      flex-direction: row;
+    }
+    .left-data-block {
+      width: 86% !important;
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 12px;
+      flex: 1;
+      align-items: start;
+    }
+    .right-action-block {
+      width: 14% !important;
+      min-width: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: center;
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+    .mobile-label {
+      display: block;
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+      white-space: nowrap;
+    }
+  }
+
+  /* Mobile & Tablet Viewports (< 1024px: 768px, 425px, 375px, 320px) */
+  @media (max-width: 1023px) {
+    .card-inner-flex {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .left-data-block {
+      width: 100% !important;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .right-action-block {
+      width: 100% !important;
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .grid-td {
+      background-color: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+    }
+    .mobile-label {
+      display: block;
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .btn-cyan-action {
+      flex: 1;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+    }
+  }
+
+  /* Small Mobile Breakpoint (< 480px: 320px, 375px, 425px) */
+  @media (max-width: 479px) {
+    .left-data-block {
+      grid-template-columns: 1fr;
+    }
+    .right-action-block {
+      flex-direction: column;
+    }
+  }
+</style>

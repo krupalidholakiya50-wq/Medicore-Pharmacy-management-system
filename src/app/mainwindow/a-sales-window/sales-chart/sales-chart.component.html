@@ -1,0 +1,86 @@
+<div class="sales-dashboard-wrapper" style="width: 100%; min-height: 100vh; background-color: #f8fafc; padding: 16px; box-sizing: border-box;">
+  
+  <!-- 1. TOP TAB TABS SELECTION NAV BAR -->
+  <div class="flex flex-row w-full bg-gray-50 border border-gray-200 p-2 mb-6" 
+       style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 8px; margin-bottom: 24px; border-radius: 6px; display: flex; flex-direction: row; width: 100%;">
+    <div style="display: flex; flex-direction: row; width: 100%; gap: 8px;">
+      <!-- Left Tab Segment: Sales Chart (Active dark blue #2563eb) -->
+      <a routerLink="/salesreport" 
+         style="flex: 1; text-align: center; background-color: #2563eb; color: #ffffff; font-weight: 700; padding: 12px 16px; border-radius: 4px; text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        Sales Chart
+      </a>
+      
+      <!-- Right Tab Segment: Sales Report (Light-gray / white background with dark text) -->
+      <a routerLink="/salesreport/report" 
+         style="flex: 1; text-align: center; background-color: #ffffff; color: #334155; font-weight: 600; padding: 12px 16px; border-radius: 4px; border: 1px solid #cbd5e1; text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 15px;">
+        Sales Report
+      </a>
+    </div>
+  </div>
+
+  <!-- 2. BOTTOM SPLIT GRIDS - TWO DYNAMIC CHARTS (DESKTOP / MOBILE RESPONSIVE LAYOUT) -->
+  <div class="flex flex-col lg:flex-row gap-6 w-full items-stretch" style="width: 100%;">
+    
+    <!-- LEFT CHART CONTAINER: Sales per Month (50% Desktop Width) -->
+    <div class="chart-card-col" style="flex: 1; width: 100%; min-width: 0;">
+      <div style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; height: 100%; box-shadow: 0 1px 4px rgba(0,0,0,0.05);">
+        <div style="background-color: #e2e8f0; color: #1e293b; font-weight: 700; font-size: 16px; padding: 14px 20px; border-bottom: 1px solid #cbd5e1;">
+          Sales per Month
+        </div>
+        <div style="padding: 16px; flex: 1; display: flex; flex-direction: column; background-color: #f8fafc;">
+          <div style="background-color: #1e1f22; border-radius: 6px; padding: 20px 16px 12px 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+            <h3 style="color: #ffffff; text-align: center; font-size: 16px; font-weight: 600; margin: 0 0 16px 0; letter-spacing: 0.3px;">
+              Sales Per Month (Rs)
+            </h3>
+            <div style="width: 100%; min-height: 400px;">
+              <apx-chart
+                *ngIf="monthChartOptions"
+                [series]="monthChartOptions.series"
+                [chart]="monthChartOptions.chart"
+                [colors]="monthChartOptions.colors"
+                [plotOptions]="monthChartOptions.plotOptions"
+                [dataLabels]="monthChartOptions.dataLabels"
+                [xaxis]="monthChartOptions.xaxis"
+                [yaxis]="monthChartOptions.yaxis"
+                [grid]="monthChartOptions.grid"
+                [tooltip]="monthChartOptions.tooltip">
+              </apx-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT CHART CONTAINER: Sales per Drug (50% Desktop Width) -->
+    <div class="chart-card-col" style="flex: 1; width: 100%; min-width: 0;">
+      <div style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; height: 100%; box-shadow: 0 1px 4px rgba(0,0,0,0.05);">
+        <div style="background-color: #e2e8f0; color: #1e293b; font-weight: 700; font-size: 16px; padding: 14px 20px; border-bottom: 1px solid #cbd5e1;">
+          Sales per Drug
+        </div>
+        <div style="padding: 16px; flex: 1; display: flex; flex-direction: column; background-color: #f8fafc;">
+          <div style="background-color: #1e1f22; border-radius: 6px; padding: 20px 16px 12px 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+            <h3 style="color: #ffffff; text-align: center; font-size: 16px; font-weight: 600; margin: 0 0 16px 0; letter-spacing: 0.3px;">
+              Drugs sold in the cashier (100 most resent transactions)
+            </h3>
+            <div style="width: 100%; min-height: 400px;">
+              <apx-chart
+                *ngIf="drugChartOptions"
+                [series]="drugChartOptions.series"
+                [chart]="drugChartOptions.chart"
+                [colors]="drugChartOptions.colors"
+                [plotOptions]="drugChartOptions.plotOptions"
+                [dataLabels]="drugChartOptions.dataLabels"
+                [xaxis]="drugChartOptions.xaxis"
+                [yaxis]="drugChartOptions.yaxis"
+                [grid]="drugChartOptions.grid"
+                [tooltip]="drugChartOptions.tooltip">
+              </apx-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

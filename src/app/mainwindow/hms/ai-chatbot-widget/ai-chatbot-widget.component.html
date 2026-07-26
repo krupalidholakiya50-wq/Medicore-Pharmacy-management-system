@@ -1,0 +1,53 @@
+<!-- Sticky Floating Chatbot Toggle Button (Bottom-Right Corner) -->
+<div style="position: fixed; bottom: 24px; right: 24px; z-index: 9999;">
+  
+  <button (click)="toggleWidget()" 
+          type="button" 
+          style="width: 56px; height: 56px; border-radius: 50%; background-color: #2563eb; color: #ffffff; border: 2px solid #ffffff; box-shadow: 0 4px 14px rgba(37,99,235,0.4); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; transition: transform 0.2s ease;">
+    🏥
+  </button>
+
+  <!-- Expanded Chatbot Panel -->
+  <div *ngIf="isOpen" 
+       style="position: absolute; bottom: 68px; right: 0; width: 360px; max-width: calc(100vw - 32px); height: 480px; background-color: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; box-shadow: 0 12px 28px rgba(0,0,0,0.15); display: flex; flex-direction: column; overflow: hidden; animation: popUp 0.25s ease-out;">
+    
+    <!-- Chatbot Header -->
+    <div style="background-color: #1e293b; color: #ffffff; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="width: 10px; height: 10px; border-radius: 50%; background-color: #22c55e;"></span>
+        <span style="font-weight: 700; font-size: 15px; color: #38bdf8;">Apex Hospital AI Bot</span>
+      </div>
+      <button (click)="toggleWidget()" style="background: none; border: none; color: #94a3b8; font-size: 18px; cursor: pointer;">✕</button>
+    </div>
+
+    <!-- Messages Container -->
+    <div style="flex: 1; padding: 16px; overflow-y: auto; background-color: #f8fafc; display: flex; flex-direction: column; gap: 12px;">
+      <div *ngFor="let msg of chatHistory" 
+           [style.align-self]="msg.sender === 'user' ? 'flex-end' : 'flex-start'"
+           [style.background-color]="msg.sender === 'user' ? '#2563eb' : '#ffffff'"
+           [style.color]="msg.sender === 'user' ? '#ffffff' : '#1e293b'"
+           [style.border]="msg.sender === 'user' ? 'none' : '1px solid #e2e8f0'"
+           style="max-width: 84%; padding: 10px 14px; border-radius: 10px; font-size: 13px; line-height: 1.45; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+        <div>{{ msg.text }}</div>
+        <div [style.color]="msg.sender === 'user' ? '#93c5fd' : '#94a3b8'" style="font-size: 10px; margin-top: 4px; text-align: right;">{{ msg.timestamp }}</div>
+      </div>
+    </div>
+
+    <!-- Input Footer -->
+    <div style="padding: 12px; background-color: #ffffff; border-top: 1px solid #e2e8f0; display: flex; gap: 8px;">
+      <input type="text" 
+             [(ngModel)]="userQuery" 
+             (keyup.enter)="sendMessage()" 
+             placeholder="Ask OPD timing, doctors, ICU beds..." 
+             style="flex: 1; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 12px; font-size: 13px; outline: none;" />
+      
+      <button (click)="sendMessage()" 
+              type="button" 
+              style="background-color: #2563eb; color: #ffffff; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer;">
+        Send
+      </button>
+    </div>
+
+  </div>
+
+</div>

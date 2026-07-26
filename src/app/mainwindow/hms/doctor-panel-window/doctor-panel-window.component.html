@@ -1,0 +1,85 @@
+<div style="width: 100%; min-height: 100vh; background-color: #f8fafc; padding: 16px; box-sizing: border-box; overflow-x: hidden !important;">
+
+  <!-- Header -->
+  <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+    <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #0f172a;">Doctor Clinical Workstation & Vitals Entry</h2>
+    <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">Manage assigned ward patients, record progress notes, and log live vitals parameters.</p>
+  </div>
+
+  <!-- Dual Layout Container -->
+  <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 20px; width: 100%;">
+    
+    <!-- Left Assigned Patients List -->
+    <div style="flex: 1; min-width: 300px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+      <h3 style="margin: 0 0 14px 0; font-size: 16px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+        Assigned In-Patients List
+      </h3>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div *ngFor="let p of patients" 
+             (click)="selectPatient(p)"
+             [style.background-color]="selectedPatient?.id === p.id ? '#eff6ff' : '#f8fafc'"
+             [style.border-color]="selectedPatient?.id === p.id ? '#2563eb' : '#cbd5e1'"
+             style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; transition: all 0.2s ease;">
+          
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; color: #0f172a;">{{ p.name }}</span>
+            <span style="font-size: 11px; font-weight: 700; color: #2563eb; background-color: #dbeafe; padding: 2px 6px; border-radius: 4px;">{{ p.roomType }}</span>
+          </div>
+          <div style="font-size: 12px; color: #64748b; margin-top: 4px;">ID: {{ p.patientId }} | Age: {{ p.age }} yrs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Diagnosis Form & Vitals Entry Logs -->
+    <div *ngIf="selectedPatient" style="flex: 2; min-width: 320px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+      <h3 style="margin: 0 0 14px 0; font-size: 16px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+        Clinical Progress Notes & Vitals Entry: <span style="color: #2563eb;">{{ selectedPatient.name }}</span>
+      </h3>
+
+      <form (ngSubmit)="logVitalsAndDiagnosis()">
+        <!-- Vitals Input Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 16px;">
+          <div>
+            <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">Blood Pressure</label>
+            <input type="text" [(ngModel)]="bp" name="bp" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px; font-size: 13px; box-sizing: border-box;" />
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">Pulse (BPM)</label>
+            <input type="number" [(ngModel)]="pulse" name="pulse" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px; font-size: 13px; box-sizing: border-box;" />
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">Temp (°F)</label>
+            <input type="number" [(ngModel)]="temp" name="temp" step="0.1" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px; font-size: 13px; box-sizing: border-box;" />
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">SpO2 (%)</label>
+            <input type="number" [(ngModel)]="spo2" name="spo2" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px; font-size: 13px; box-sizing: border-box;" />
+          </div>
+        </div>
+
+        <!-- Diagnosis Notes -->
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 4px;">Doctor's Clinical Notes & Treatment Plan</label>
+          <textarea [(ngModel)]="diagnosisNotes" name="diagnosisNotes" rows="4" placeholder="Enter daily clinical progress, medication adjustments, or lab orders..." 
+                    style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px; font-size: 13px; box-sizing: border-box;"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" 
+                style="background-color: #00bfa5; color: #ffffff; border: none; padding: 10px 24px; border-radius: 4px; font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          Save Vitals & Log Clinical Notes
+        </button>
+      </form>
+
+      <div *ngIf="vitalsLogged" style="margin-top: 14px; padding: 12px; background-color: #dcfce7; color: #15803d; border-radius: 6px; font-weight: 700; font-size: 13px;">
+        ✓ Clinical Vitals & Treatment Log saved for {{ selectedPatient.name }}.
+      </div>
+    </div>
+
+  </div>
+
+</div>

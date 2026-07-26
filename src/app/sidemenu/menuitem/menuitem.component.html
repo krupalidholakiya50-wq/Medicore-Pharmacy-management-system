@@ -1,0 +1,162 @@
+<div class="sidebar-tree-container">
+  
+  <!-- CATEGORY 1: HOSPITAL WINGS -->
+  <div class="menu-category-title">HOSPITAL WINGS</div>
+  <ul class="menu-list-custom">
+    <li>
+      <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <i class="fa fa-tachometer nav-icon"></i> Dashboard
+      </a>
+    </li>
+    <li>
+      <a routerLink="/reception" routerLinkActive="active-link">
+        <i class="fa fa-id-card nav-icon"></i> Patient Admissions & OPD
+      </a>
+    </li>
+    <li>
+      <a routerLink="/patient-panel" routerLinkActive="active-link">
+        <i class="fa fa-folder-open nav-icon"></i> Patient Panel
+      </a>
+    </li>
+    <li>
+      <a routerLink="/doctors" routerLinkActive="active-link">
+        <i class="fa fa-user-md nav-icon"></i> Doctors & Staff Intro
+      </a>
+    </li>
+    <li>
+      <a routerLink="/doctor-panel" routerLinkActive="active-link">
+        <i class="fa fa-stethoscope nav-icon"></i> Doctor Panel
+      </a>
+    </li>
+    <li>
+      <a routerLink="/surgery" routerLinkActive="active-link">
+        <i class="fa fa-hospital-o nav-icon"></i> OT & Surgery Tracker
+      </a>
+    </li>
+    <li>
+      <a routerLink="/billing" routerLinkActive="active-link">
+        <i class="fa fa-calculator nav-icon"></i> Central Hospital Billing
+      </a>
+    </li>
+  </ul>
+
+  <!-- CATEGORY 2: MEDICORE PHARMACY WINGS -->
+  <div class="menu-category-title" style="margin-top: 18px;">MEDICORE PHARMACY WINGS</div>
+  <ul class="menu-list-custom">
+    <li>
+      <a routerLink="/pos" routerLinkActive="active-link">
+        <i class="fa fa-shopping-cart nav-icon"></i> Point of Sales (PoS)
+      </a>
+    </li>
+    <li>
+      <a routerLink="/doctororders" routerLinkActive="active-link">
+        <i class="fa fa-clipboard nav-icon"></i> Doctor Orders
+      </a>
+    </li>
+    <li>
+      <a routerLink="/inventory" routerLinkActive="active-link">
+        <i class="fa fa-cubes nav-icon"></i> Active Inventory & Stock
+      </a>
+    </li>
+    <li>
+      <a routerLink="/outofstock" routerLinkActive="active-link">
+        <i class="fa fa-times-circle nav-icon"></i> Out of Stock Alert
+      </a>
+    </li>
+    <li>
+      <a routerLink="/expoutofstock" routerLinkActive="active-link">
+        <i class="fa fa-exclamation-triangle nav-icon"></i> Expired & Warnings
+      </a>
+    </li>
+    <li>
+      <a routerLink="/suppliers" routerLinkActive="active-link">
+        <i class="fa fa-truck nav-icon"></i> Supplier Management
+      </a>
+    </li>
+    <li>
+      <a routerLink="/salesreport" routerLinkActive="active-link">
+        <i class="fa fa-line-chart nav-icon"></i> Sales Charts & Reports
+      </a>
+    </li>
+    <li>
+      <a routerLink="/predictionreport" routerLinkActive="active-link">
+        <i class="fa fa-bar-chart nav-icon"></i> Prediction Analytical Report
+      </a>
+    </li>
+    <li>
+      <a routerLink="/settings" routerLinkActive="active-link">
+        <i class="fa fa-cog nav-icon"></i> System Preferences & Settings
+      </a>
+    </li>
+  </ul>
+
+  <!-- CATEGORY 3: INTELLIGENT INTEGRATION -->
+  <div class="menu-category-title" style="margin-top: 18px;">INTELLIGENT INTEGRATION</div>
+  <ul class="menu-list-custom">
+    <li>
+      <a routerLink="/chatbot" routerLinkActive="active-link">
+        <i class="fa fa-comments nav-icon"></i> AI Medical Chatbot
+      </a>
+    </li>
+  </ul>
+
+</div>
+
+<style>
+  .sidebar-tree-container {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .menu-category-title {
+    font-size: 0.64rem;
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+    padding-left: 6px;
+  }
+
+  .menu-list-custom {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .menu-list-custom a {
+    display: flex;
+    align-items: center;
+    padding: 9px 12px;
+    color: #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  /* Soft Charcoal Grey Hover Effect (#3a3b3e) */
+  .menu-list-custom a:hover {
+    background-color: #3a3b3e !important;
+    color: #ffffff !important;
+  }
+
+  /* Active Link State */
+  .menu-list-custom a.active-link {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .nav-icon {
+    width: 22px;
+    margin-right: 8px;
+    font-size: 1rem;
+    text-align: center;
+  }
+</style>

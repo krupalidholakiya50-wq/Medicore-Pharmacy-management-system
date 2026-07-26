@@ -1,0 +1,66 @@
+<div style="width: 100%; min-height: 100vh; background-color: #f8fafc; padding: 16px; box-sizing: border-box; overflow-x: hidden !important;">
+
+  <!-- Header Panel -->
+  <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+    <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #0f172a;">Operating Theater (OT) & Surgery Tracker Matrix</h2>
+    <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">Live operating suite scheduling grid. Supervisors can update case statuses in real-time.</p>
+  </div>
+
+  <!-- Operating Theater Spreadsheet Table Matrix -->
+  <div style="width: 100%; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
+    
+    <!-- Desktop Spreadsheet Header -->
+    <div class="ot-header-row" style="display: grid; grid-template-columns: 1.2fr 1.6fr 2.2fr 1.4fr 1.8fr 1.6fr; gap: 12px; padding: 14px 16px; background-color: #1e293b; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 0.5px;">
+      <div>CASE ID</div>
+      <div>PATIENT NAME</div>
+      <div>SURGERY TYPE</div>
+      <div>OT ROOM NO</div>
+      <div>LEAD SURGEON</div>
+      <div style="text-align: right;">STATUS CONTROL</div>
+    </div>
+
+    <!-- Spreadsheet Data Rows -->
+    <div *ngIf="surgeries.length > 0">
+      <div *ngFor="let item of surgeries; let isLast = last" 
+           class="ot-data-row" 
+           [style.border-bottom]="isLast ? 'none' : '1px solid #e2e8f0'"
+           style="display: grid; grid-template-columns: 1.2fr 1.6fr 2.2fr 1.4fr 1.8fr 1.6fr; gap: 12px; padding: 16px; align-items: center; font-size: 13px; font-weight: 600; color: #334155;">
+        
+        <!-- CASE ID -->
+        <div style="font-family: monospace; color: #2563eb; font-weight: 700;">{{ item.caseId }}</div>
+
+        <!-- PATIENT NAME -->
+        <div style="color: #0f172a; font-weight: 700;">{{ item.patientName }}</div>
+
+        <!-- SURGERY TYPE -->
+        <div style="color: #475569;">{{ item.surgeryType }}</div>
+
+        <!-- OT ROOM NO -->
+        <div>
+          <span style="background-color: #f1f5f9; border: 1px solid #cbd5e1; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; color: #1e293b;">
+            {{ item.otRoomNo }}
+          </span>
+        </div>
+
+        <!-- LEAD SURGEON -->
+        <div style="color: #0f172a;">{{ item.leadSurgeon }}</div>
+
+        <!-- LIVE CRUD STATUS SELECTOR -->
+        <div style="text-align: right;">
+          <select [value]="item.status" 
+                  (change)="onStatusChange(item.caseId, $event)"
+                  [style.background-color]="item.status === 'Scheduled' ? '#fef3c7' : item.status === 'In-Progress' ? '#dbeafe' : '#dcfce7'"
+                  [style.color]="item.status === 'Scheduled' ? '#92400e' : item.status === 'In-Progress' ? '#1e40af' : '#166534'"
+                  style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 6px 12px; font-weight: 700; font-size: 12px; cursor: pointer; outline: none;">
+            <option value="Scheduled">Scheduled</option>
+            <option value="In-Progress">In-Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

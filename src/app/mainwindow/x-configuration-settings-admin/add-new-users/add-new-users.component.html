@@ -1,0 +1,50 @@
+<div class="settings-dashboard-wrapper" style="width: 100%; min-height: 100vh; background-color: #f8fafc; padding: 16px; box-sizing: border-box; overflow-x: hidden !important;">
+  
+  <!-- 1. TOP MULTI-TAB NAVIGATION BAR -->
+  <div class="flex flex-row w-full bg-gray-50 border border-gray-200 mb-6" 
+       style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 8px; margin-bottom: 24px; border-radius: 6px; display: flex; flex-direction: row; width: 100%;">
+    <div style="display: flex; flex-direction: row; width: 100%; gap: 8px;">
+      
+      <!-- Tab 1: Add New Accounts (Active dark blue #2563eb) -->
+      <a routerLink="/settings" 
+         style="flex: 1; text-align: center; background-color: #2563eb; color: #ffffff; font-weight: 700; padding: 12px 16px; border-radius: 4px; text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        Add New Accounts
+      </a>
+      
+      <!-- Tab 2: Manage Doctor Account -->
+      <a routerLink="/settings/DoctorAccount" 
+         style="flex: 1; text-align: center; background-color: #ffffff; color: #334155; font-weight: 600; padding: 12px 16px; border-radius: 4px; border: 1px solid #cbd5e1; text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 15px;">
+        Manage Doctor Account
+      </a>
+
+      <!-- Tab 3: Manage Pharmacy User Account -->
+      <a routerLink="/settings/APharmasistAccounts" 
+         style="flex: 1; text-align: center; background-color: #ffffff; color: #334155; font-weight: 600; padding: 12px 16px; border-radius: 4px; border: 1px solid #cbd5e1; text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 15px;">
+        Manage Pharmacy User Account
+      </a>
+
+      <!-- Tab 4: View User Statictics -->
+      <a routerLink="/settings/CashierAccounts" 
+         style="flex: 1; text-align: center; background-color: #ffffff; color: #334155; font-weight: 600; padding: 12px 16px; border-radius: 4px; border: 1px solid #cbd5e1; text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 15px;">
+        View User Statictics
+      </a>
+
+    </div>
+  </div>
+
+  <!-- 2. SIDE-BY-SIDE DUAL SIGNUP FORMS (DESKTOP / MOBILE RESPONSIVE LAYOUT) -->
+  <div class="flex flex-col lg:flex-row gap-6 w-full items-stretch" style="width: 100%;">
+    
+    <!-- LEFT FORM BLOCK: Add Pharamacy User (50% Width) -->
+    <div style="flex: 1; width: 100%; min-width: 0;">
+      <app-add-doctor-user></app-add-doctor-user>
+    </div>
+
+    <!-- RIGHT FORM BLOCK: Add new Doctor Account (50% Width) -->
+    <div style="flex: 1; width: 100%; min-width: 0;">
+      <app-add-phamacy-user></app-add-phamacy-user>
+    </div>
+
+  </div>
+
+</div>

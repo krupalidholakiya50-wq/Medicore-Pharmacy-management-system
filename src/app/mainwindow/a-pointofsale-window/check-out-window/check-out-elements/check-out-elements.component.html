@@ -1,0 +1,38 @@
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b;">
+
+  <!-- Total Amount Row -->
+  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
+    <span style="color: #475569;">Total :</span>
+    <span style="font-weight: 800; font-size: 16px; color: #0f172a;">Rs. {{ totalAmount }}</span>
+  </div>
+
+  <!-- Tax Input Row -->
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <span style="color: #475569;">Tax (Rs) :</span>
+    <input type="number" 
+           [(ngModel)]="taxAmount" 
+           (keyup)="calculateBalance()" 
+           (change)="calculateBalance()" 
+           style="width: 140px; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px 10px; font-size: 14px; text-align: right;" />
+  </div>
+
+  <!-- Paid Amount Input Row -->
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <span style="color: #2563eb; font-weight: 700;">Paid Amount (Rs) :</span>
+    <input type="number" 
+           [(ngModel)]="paidAmount" 
+           (keyup)="calculateBalance()" 
+           (change)="calculateBalance()" 
+           placeholder="Enter amount" 
+           style="width: 140px; border: 2px solid #2563eb; border-radius: 4px; padding: 6px 10px; font-size: 14px; font-weight: 700; text-align: right; background-color: #f0f9ff;" />
+  </div>
+
+  <!-- Balance Output Row (Paid Amount - Total = Balance) -->
+  <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f8fafc; padding: 12px; border-radius: 6px; border: 1px solid #cbd5e1;">
+    <span style="color: #334155; font-weight: 700;">Balance (Rs) :</span>
+    <span [style.color]="balance >= 0 ? '#166534' : '#dc2626'" style="font-size: 18px; font-weight: 800;">
+      Rs. {{ balance }}
+    </span>
+  </div>
+
+</div>

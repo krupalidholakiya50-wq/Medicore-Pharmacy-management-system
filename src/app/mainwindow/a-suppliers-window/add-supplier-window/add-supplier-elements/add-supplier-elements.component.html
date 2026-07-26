@@ -1,0 +1,238 @@
+<div class="add-supplier-form-wrapper w-full">
+  
+  <!-- LOADING SPINNER -->
+  <div class="spinner-box loadCenter" *ngIf="isLoading">
+    <div class="configure-border-1">
+      <div class="configure-core"></div>
+    </div>
+    <div class="configure-border-2">
+      <div class="configure-core"></div>
+    </div>
+  </div>
+
+  <!-- ADD SUPPLIER FORM BOX STRUCTURE -->
+  <div class="form-wrapper-box w-full" *ngIf="!isLoading">
+    
+    <!-- Sharp Light Gray Header Banner -->
+    <div class="form-header-banner">
+      Add Supplier
+    </div>
+
+    <!-- Inner Form Body Panel (White, Rounded Bottom, Soft Shadow) -->
+    <div class="form-inner-body bg-white rounded-b-md shadow-sm border-x border-b border-gray-200 p-6 w-full">
+      
+      <form [formGroup]="form" (ngSubmit)="onAddSupplier()">
+        
+        <!-- Vertical Stacking Form Fields -->
+        <div class="vertical-fields-stack">
+          
+          <!-- Field 1: SUPPLIER ID -->
+          <div class="field-row">
+            <label class="uppercase-bold-label">SUPPLIER ID</label>
+            <input 
+              type="text" 
+              class="white-input-field" 
+              formControlName="supplierID" 
+              placeholder="19283838" 
+            />
+            <div class="error-msg-text" *ngIf="registerFormControl['supplierID']?.touched && registerFormControl['supplierID']?.invalid">
+              *Supplier ID is required.
+            </div>
+          </div>
+
+          <!-- Field 2: NAME -->
+          <div class="field-row">
+            <label class="uppercase-bold-label">NAME</label>
+            <input 
+              type="text" 
+              class="white-input-field" 
+              formControlName="name" 
+              placeholder="Mr S M Bandara" 
+            />
+            <div class="error-msg-text" *ngIf="registerFormControl['name']?.touched && registerFormControl['name']?.invalid">
+              *Name is required.
+            </div>
+          </div>
+
+          <!-- Field 3: EMAIL -->
+          <div class="field-row">
+            <label class="uppercase-bold-label">EMAIL</label>
+            <input 
+              type="email" 
+              class="white-input-field" 
+              formControlName="email" 
+              placeholder="xxx@gmail.com" 
+            />
+            <div class="error-msg-text" *ngIf="registerFormControl['email']?.touched && registerFormControl['email']?.invalid">
+              *Valid email address is required.
+            </div>
+          </div>
+
+          <!-- Field 4: CONTACT -->
+          <div class="field-row">
+            <label class="uppercase-bold-label">CONTACT</label>
+            <input 
+              type="text" 
+              class="white-input-field" 
+              formControlName="contact" 
+              placeholder="071xxxxxxx" 
+            />
+            <div class="error-msg-text" *ngIf="registerFormControl['contact']?.touched && registerFormControl['contact']?.invalid">
+              *Contact number is required.
+            </div>
+          </div>
+
+          <!-- Field 5: DRUGS AVAILABLE -->
+          <div class="field-row">
+            <label class="uppercase-bold-label">DRUGS AVAILABLE</label>
+            <input 
+              type="text" 
+              class="white-input-field" 
+              formControlName="drugsAvailable" 
+              placeholder="Penadol, Dalcolax" 
+            />
+            <div class="error-msg-text" *ngIf="registerFormControl['drugsAvailable']?.touched && registerFormControl['drugsAvailable']?.invalid">
+              *Drugs Available is required.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Full-Width Teal Submit Action Button Banner -->
+        <div class="submit-button-container">
+          <button class="btn-full-teal" type="submit">
+            Add
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+  .add-supplier-form-wrapper {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden !important;
+    overflow-y: visible;
+  }
+
+  .form-wrapper-box {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  /* Sharp Light Gray Header Banner Bar */
+  .form-header-banner {
+    background-color: #e2e8f0;
+    color: #1e293b;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 14px 20px;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid #cbd5e1;
+    border-bottom: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Inner Form Body Panel */
+  .form-inner-body {
+    background-color: #ffffff;
+    border-radius: 0 0 6px 6px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .vertical-fields-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .field-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Uppercase Bold Black Labels */
+  .uppercase-bold-label {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #000000;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Wide White Input Box Container */
+  .white-input-field {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    outline: none;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .white-input-field:focus {
+    border-color: #00bfa5;
+    box-shadow: 0 0 0 3px rgba(0, 191, 165, 0.12);
+  }
+
+  .error-msg-text {
+    color: #ef4444;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* Full-Width Teal Submit Action Button Container */
+  .submit-button-container {
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  .btn-full-teal {
+    width: 100%;
+    height: 46px;
+    background-color: #00bfa5;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease;
+  }
+
+  .btn-full-teal:hover {
+    background-color: #00a892;
+  }
+
+  /* MOBILE RESPONSIVENESS */
+  @media (max-width: 767px) {
+    .form-inner-body {
+      padding: 16px;
+    }
+  }
+</style>

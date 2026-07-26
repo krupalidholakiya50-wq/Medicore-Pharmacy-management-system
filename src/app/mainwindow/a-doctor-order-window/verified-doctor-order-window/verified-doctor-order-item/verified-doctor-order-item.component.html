@@ -1,0 +1,222 @@
+<div class="doctor-orders-wrapper">
+  <div *ngIf="docOders.length === 0" class="empty-state">
+    No verified orders available in this section.
+  </div>
+
+  <div *ngFor="let docOder of docOders" class="doctor-order-card">
+    
+    <!-- Top 9 Data Columns Grid -->
+    <div class="order-grid">
+      <!-- Headers (Desktop Only) -->
+      <div class="grid-th desktop-only">Doctor Name</div>
+      <div class="grid-th desktop-only">Doctor Contact</div>
+      <div class="grid-th desktop-only">DoctorID</div>
+      <div class="grid-th desktop-only">Doctor Email</div>
+      <div class="grid-th desktop-only">Drug Names</div>
+      <div class="grid-th desktop-only">Drug Prices</div>
+      <div class="grid-th desktop-only">Quantities</div>
+      <div class="grid-th desktop-only">Total</div>
+      <div class="grid-th desktop-only">Pickup Date</div>
+
+      <!-- Data Values -->
+      <div class="grid-td">
+        <span class="mobile-label">Doctor Name</span>
+        <span class="data-value">{{docOder.doctorName}}</span>
+      </div>
+
+      <div class="grid-td">
+        <span class="mobile-label">Doctor Contact</span>
+        <span>{{docOder.doctorContact}}</span>
+      </div>
+
+      <div class="grid-td">
+        <span class="mobile-label">DoctorID</span>
+        <span>{{docOder.doctorId}}</span>
+      </div>
+
+      <div class="grid-td">
+        <span class="mobile-label">Doctor Email</span>
+        <span>{{docOder.doctorEmail}}</span>
+      </div>
+
+      <div class="grid-td">
+        <span class="mobile-label">Drug Names</span>
+        <div class="drug-stack">
+          <div *ngFor="let name of docOder.drugName">{{name}}</div>
+        </div>
+      </div>
+
+      <div class="grid-td">
+        <span class="mobile-label">Drug Prices</span>
+        <div class="drug-stack">
+          <div *ngFor="let price of docOder.drugPrice">{{price}}</div>
+        </div>
+      </div>
+
+      <div class="grid-td">
+        <span class="mobile-label">Quantities</span>
+        <div class="drug-stack">
+          <div *ngFor="let qty of docOder.drugQuantity">{{qty}}</div>
+        </div>
+      </div>
+
+      <div class="grid-td">
+        <span class="mobile-label">Total</span>
+        <span class="data-value">{{docOder.totalAmount}}</span>
+      </div>
+
+      <div class="grid-td">
+        <span class="mobile-label">Pickup Date</span>
+        <span>{{docOder.pickupDate}}</span>
+      </div>
+    </div>
+
+    <!-- Bottom Full-Width Horizontal Teal Action Button Bar (Picked Up) -->
+    <div class="card-footer-button-wrapper">
+      <button class="btn-full-picked-up" (click)="onPickup(docOder.doctorName,docOder.doctorEmail,docOder.totalAmount,docOder.pickupDate,docOder.drugId,docOder.drugName,docOder.drugPrice,docOder.drugQuantity,docOder.realQuantity,docOder.doctorId,docOder.doctorContact,docOder.id)">
+        Picked Up
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .doctor-orders-wrapper {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  .empty-state {
+    padding: 32px;
+    text-align: center;
+    color: #666666;
+    font-size: 0.95rem;
+    font-weight: 500;
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .doctor-order-card {
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 16px 20px 0 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  .grid-td {
+    font-size: 0.84rem;
+    color: #4a4a4a;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+
+  .data-value {
+    color: #222222;
+  }
+
+  .drug-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .card-footer-button-wrapper {
+    width: 100%;
+    margin-top: 14px;
+    margin-bottom: 0;
+    padding: 0;
+    margin-left: -20px;
+    margin-right: -20px;
+    width: calc(100% + 40px);
+  }
+
+  .btn-full-picked-up {
+    background-color: #00d1b2;
+    color: #ffffff;
+    border: none;
+    border-radius: 0 0 4px 4px;
+    padding: 9px 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    transition: background-color 0.15s ease;
+    display: block;
+  }
+
+  .btn-full-picked-up:hover {
+    background-color: #00b89c;
+  }
+
+  /* Desktop Viewport (>= 1024px) */
+  @media (min-width: 1024px) {
+    .order-grid {
+      display: grid;
+      grid-template-columns: minmax(130px, 1.4fr) minmax(110px, 1.1fr) minmax(105px, 1.1fr) minmax(160px, 1.6fr) minmax(110px, 1.2fr) minmax(80px, 0.8fr) minmax(75px, 0.7fr) minmax(75px, 0.7fr) minmax(95px, 1fr);
+      column-gap: 14px;
+      row-gap: 8px;
+      align-items: start;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .desktop-only {
+      display: block;
+    }
+    .mobile-label {
+      display: none;
+    }
+    .grid-th {
+      font-weight: 700;
+      color: #111111;
+      font-size: 0.86rem;
+      padding-bottom: 8px;
+      white-space: nowrap;
+    }
+  }
+
+  /* Mobile & Tablet Viewports (< 1024px: 768px, 425px, 375px, 320px) */
+  @media (max-width: 1023px) {
+    .order-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .desktop-only {
+      display: none;
+    }
+    .mobile-label {
+      display: block;
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .grid-td {
+      background-color: #f8fafc;
+      padding: 10px 12px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+  }
+
+  /* Small Mobile Breakpoint (< 480px: 320px, 375px, 425px) */
+  @media (max-width: 479px) {
+    .order-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

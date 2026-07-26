@@ -1,0 +1,27 @@
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px;">
+  <li *ngFor="let item of inventorys">
+    <div (click)="openMedicineActionModal(item)"
+         class="cursor-pointer hover:bg-neutral-800/20 active:scale-[0.99] transition-all duration-200 ease-in-out"
+         style="background-color: #dcdcdc; color: #333333; padding: 12px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 500; cursor: pointer !important;">
+      <div style="font-weight: 700;">Name : {{item.name}}</div>
+      <div style="font-size: 0.8rem; opacity: 0.9;">Batch Id : {{item.batchId || 'AMX-2026D'}}</div>
+    </div>
+  </li>
+</ul>
+
+<!-- ACTION POPUP MODAL FOR OUT OF STOCK ITEMS -->
+<div *ngIf="selectedItem" class="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50" style="position: fixed; inset: 0; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 16px;">
+  <div class="bg-white rounded-lg p-6 max-w-md w-full shadow-2xl border border-gray-100 text-sm" style="background-color: #ffffff; border-radius: 12px; max-width: 440px; width: 100%; padding: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); border: 1px solid #e2e8f0; font-size: 14px;">
+    <h3 class="text-base font-bold text-gray-800 mb-3 border-b pb-2" style="font-size: 16px; font-weight: 800; color: #1e293b; margin-top: 0; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">Apex Central Inventory Action Hub</h3>
+    <div class="flex flex-col gap-2 text-gray-700 font-medium mb-5" style="display: flex; flex-direction: column; gap: 8px; color: #334155; margin-bottom: 20px;">
+      <p style="margin: 0;"><strong style="color: #0f172a;">Selected Medication:</strong> {{selectedItem.name}}</p>
+      <p style="margin: 0;"><strong style="color: #0f172a;">Current Active Batch ID:</strong> {{selectedItem.batchId || 'AMX-2026D'}}</p>
+      <p style="margin: 0;"><strong style="color: #0f172a;">Assigned Supplier Reference:</strong> {{selectedItem.supplier || 'Janvi Ramani'}}</p>
+      <p class="text-red-500" style="color: #ef4444; font-weight: 700; margin: 0;"><strong>System Alert Warning:</strong> Critical Out of Stock Threshold Triggered!</p>
+    </div>
+    <div class="flex gap-3 justify-end" style="display: flex; gap: 12px; justify-content: flex-end;">
+      <button (click)="closeModal()" class="px-4 py-2 border border-gray-200 text-gray-500 rounded-md font-medium hover:bg-gray-50 transition-colors" style="padding: 8px 16px; border: 1px solid #cbd5e1; color: #64748b; border-radius: 6px; font-weight: 600; cursor: pointer; background: #ffffff;">Dismiss</button>
+      <button (click)="dispatchEmergencyOrder()" class="px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-md font-bold transition-colors" style="padding: 8px 18px; background-color: #00bfa5; color: #ffffff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; box-shadow: 0 2px 4px rgba(0,191,165,0.3);">Dispatch Emergency Re-Order</button>
+    </div>
+  </div>
+</div>

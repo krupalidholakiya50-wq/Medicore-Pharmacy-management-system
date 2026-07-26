@@ -1,0 +1,103 @@
+<div style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; height: 100%; box-shadow: 0 1px 4px rgba(0,0,0,0.05);">
+  
+  <!-- Header Banner -->
+  <div style="background-color: #e2e8f0; color: #1e293b; font-weight: 700; font-size: 16px; padding: 14px 20px; border-bottom: 1px solid #cbd5e1;">
+    Add Pharamacy User
+  </div>
+
+  <!-- Content Card -->
+  <div class="bg-white rounded-b-md shadow-sm border-t border-gray-200 p-6" 
+       style="background-color: #ffffff; padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+    
+    <form [formGroup]="form" (submit)="onSignup()" style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+      
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        
+        <!-- User Name -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 4px;">User Name</label>
+          <input formControlName="name" 
+                 type="text" 
+                 placeholder="User Name" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-size: 14px; color: #1e293b; box-sizing: border-box; outline: none;" />
+          <span style="color: #ef4444; font-size: 12px;" *ngIf="registerFormControl.name.touched && registerFormControl.name.errors?.required">
+            *User Name is required
+          </span>
+        </div>
+
+        <!-- Role Selection -->
+        <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 14px; margin-top: 2px;">
+          <p style="margin: 0 0 8px 0; font-size: 13px; font-weight: 700; color: #334155;">Role of the user</p>
+          <mat-radio-group formControlName="role" style="display: flex; flex-direction: column; gap: 8px;">
+            <mat-radio-button value="pharmacist">Pharmacist</mat-radio-button>
+            <mat-radio-button value="assistantPharmacist">Assistant Pharmacist</mat-radio-button>
+            <mat-radio-button value="cashier">Cashier</mat-radio-button>
+          </mat-radio-group>
+          <span style="color: #ef4444; font-size: 12px; display: block; margin-top: 4px;" *ngIf="registerFormControl.role.touched && registerFormControl.role.errors?.required">
+            *Role selection is required
+          </span>
+        </div>
+
+        <!-- User Contact Number -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 4px;">User Contact Number</label>
+          <input formControlName="contact" 
+                 type="text" 
+                 placeholder="User Contact Number" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-size: 14px; color: #1e293b; box-sizing: border-box; outline: none;" />
+          <span style="color: #ef4444; font-size: 12px;" *ngIf="registerFormControl.contact.touched && registerFormControl.contact.errors?.required">
+            *Contact number is required
+          </span>
+        </div>
+
+        <!-- User NIC -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 4px;">User NIC</label>
+          <input formControlName="nic" 
+                 type="text" 
+                 placeholder="User NIC" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-size: 14px; color: #1e293b; box-sizing: border-box; outline: none;" />
+          <span style="color: #ef4444; font-size: 12px;" *ngIf="registerFormControl.nic.touched && registerFormControl.nic.errors?.required">
+            *User NIC is required
+          </span>
+        </div>
+
+        <!-- User Email -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 4px;">User Email</label>
+          <input formControlName="email" 
+                 type="email" 
+                 placeholder="User Email" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-size: 14px; color: #1e293b; box-sizing: border-box; outline: none;" />
+          <span style="color: #ef4444; font-size: 12px;" *ngIf="registerFormControl.email.touched && registerFormControl.email.errors?.required">
+            *Email is required
+          </span>
+        </div>
+
+        <!-- User Password -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 4px;">User Password</label>
+          <input formControlName="password" 
+                 type="password" 
+                 placeholder="User Password" 
+                 style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-size: 14px; color: #1e293b; box-sizing: border-box; outline: none;" />
+          <span style="color: #ef4444; font-size: 12px;" *ngIf="registerFormControl.password.touched && registerFormControl.password.errors?.required">
+            *Password is required
+          </span>
+        </div>
+
+      </div>
+
+      <!-- Action Key: Teal SignUp User Button -->
+      <div style="margin-top: 24px;">
+        <button type="submit" 
+                style="width: 100%; background-color: #00bfa5; color: #ffffff; border: none; border-radius: 6px; padding: 12px; font-weight: 700; font-size: 15px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          SignUp User
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
